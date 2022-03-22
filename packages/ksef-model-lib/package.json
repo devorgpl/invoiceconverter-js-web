@@ -1,0 +1,40 @@
+{
+  "name": "@devorgpl/ksef-model-lib",
+  "version": "1.0.0",
+  "description": "model library KSeF - Krajowy System e-Faktur",
+  "main": "bin/index.js",
+  "exports": {
+    "./gen/*": "./dist/gen/*.js",
+    "./client/*": "./dist/client/*.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "setup": "npm install",
+    "ts-gen": "ts-node ./src/generate.ts",
+    "makelib": "tsc -p ./xmlns",
+    "cxsd": "cxsd",
+    "cxsd-fetch": "cxsd -t ./xmlns/ http://crd.gov.pl/wzor/2021/11/29/11089/schemat.xsd"
+  },
+  "typesVersions": {
+    "*": {
+      "gen/*": [
+        "dist/gen/*"
+      ],
+      "client/*": [
+        "dist/client/*"
+      ]
+    }
+  },
+  "dependencies": {
+    "ts-loader": "9.2.8",
+    "ts-node": "10.7.0",
+    "typescript": "4.6.2",
+    "xmldom": "^0.6.0",
+    "xsd-tools": "^0.1.1",
+    "cxsd": "github:devorgpl/cxsd-1",
+    "xsd2ts": "0.9.x"
+  },
+  "devDependencies": {
+    "cxsd": "github:devorgpl/cxsd-1"
+  }
+}
