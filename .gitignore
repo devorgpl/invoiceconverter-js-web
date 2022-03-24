@@ -5,4 +5,5 @@ coverage
 bin
 tsconfig.tsbuildinfo
 superbin
+.firebase
 
