@@ -24,6 +24,8 @@
     "typescript": "^4.6.2"
   },
   "workspaces": [
+    "packages/ksef-model-lib",
+    "packages/invoice-lib",
     "packages/*"
   ],
   "dependencies": {
