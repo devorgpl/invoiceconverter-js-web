@@ -9,7 +9,6 @@
   },
   "scripts": {
     "build": "tsc",
-    "setupX": "npm install",
     "test": "mocha",
     "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test"
   },
