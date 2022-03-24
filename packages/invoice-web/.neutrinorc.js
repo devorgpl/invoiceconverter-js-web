@@ -3,7 +3,6 @@ const react = require("@neutrinojs/react");
 const mocha = require("@neutrinojs/mocha");
 const typescript = require("neutrinojs-typescript");
 const typescriptLint = require("neutrinojs-typescript-eslint");
-const neutrino = require("neutrino");
 
 module.exports = {
   options: {
