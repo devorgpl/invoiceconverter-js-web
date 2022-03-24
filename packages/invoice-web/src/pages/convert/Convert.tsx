@@ -61,8 +61,8 @@ function ConvertPage(): React.ReactElement {
         }
     };
 
-    const handleFiles = (files) => {
-        files.forEach((element) => {
+    const handleFiles = (files: FileList) => {
+        Array.from(files).forEach((element) => {
             setSelectedFiles((prevArray) => [...prevArray, element]);
         });
     };
