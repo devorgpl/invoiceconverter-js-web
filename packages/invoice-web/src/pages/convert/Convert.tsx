@@ -64,14 +64,6 @@ function ConvertPage(): React.ReactElement {
     const handleFiles = (files: FileList) => {
         Array.from(files).forEach((element) => {
             setSelectedFiles((prevArray) => [...prevArray, element]);
-        });
-    };
-
-    const fileDrop = (e) => {
-        preventDefault(e);
-        const { files } = e.dataTransfer;
-        if (files.length) {
-            handleFiles(files);
             const file: File = files[0];
             file.text().then((data) => {
                 const parser = new ComarchXmlParser();
@@ -81,6 +73,14 @@ function ConvertPage(): React.ReactElement {
                 const buffer:Buffer = encode(result, 'win1250');
                 downloadTxtFile(`${file.name}.epp`, buffer);
             });
+        });
+    };
+
+    const fileDrop = (e) => {
+        preventDefault(e);
+        const { files } = e.dataTransfer;
+        if (files.length) {
+            handleFiles(files);
         }
     };
 
