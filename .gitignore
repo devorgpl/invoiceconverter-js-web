@@ -1,3 +1,8 @@
 .idea
 node_modules
+.nyc_output
+coverage
+bin
+tsconfig.tsbuildinfo
+superbin
 
