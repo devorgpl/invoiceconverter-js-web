@@ -109,7 +109,6 @@ export class ComarchXmlParser implements ParserInterface {
                 }
             },
         };
-       // console.log(entries);
         entries.forEach((element: any) => {
             const item = element['Line-Item'];
             result.Fa.FaWiersze?.FaWiersz.push({

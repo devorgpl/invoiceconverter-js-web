@@ -1,5 +1,4 @@
 // empty
-console.log("loading invoice-lib"); 
 import { document, FakturaType, TNaglowek, TNaglowekKodFormularzaType } from "@devorgpl/ksef-model-lib/xmlns/crd.gov.pl/wzor/2021/11/29/11089";
 
 var f: document

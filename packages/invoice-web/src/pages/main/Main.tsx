@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Main(): React.ReactElement {
+function MainPage(): React.ReactElement {
     return (
       <div className="Main">
         Main Page2
@@ -8,4 +8,4 @@ function Main(): React.ReactElement {
     );
 }
 
-export default Main;
+export default MainPage;

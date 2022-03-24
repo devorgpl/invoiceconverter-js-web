@@ -34,4 +34,4 @@ var x3: TNaglowek;
     WariantFormularza: 1,
 }
  */
-console.log(x1)
+// console.log(x1)

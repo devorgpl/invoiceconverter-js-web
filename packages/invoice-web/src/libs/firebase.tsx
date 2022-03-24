@@ -6,6 +6,7 @@ import {
     getAuth,
     GoogleAuthProvider,
     signInWithPopup,
+    User,
 } from 'firebase/auth';
 import {
     getDatabase,
@@ -33,6 +34,10 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
+interface CustomUser extends User {
+  authProvider?: string;
+}
+
 const googleProvider = new GoogleAuthProvider();
 const signInWithGoogle = async (): Promise<void> => {
   try {
@@ -48,17 +53,20 @@ const signInWithGoogle = async (): Promise<void> => {
         phoneNumber,
         photoURL,
         ...userData
-    }: any = user;
+    }: CustomUser = user;
     userData.authProvider = 'google';
     const snapshot = await get(child(ref(db), `users/${user.uid}`));
     if (!snapshot.exists()) {
-      console.log('new users: ', user);
+      // console.log('new users: ', user);
       await set(ref(db, `users/${user.uid}`), userData);
     } else {
-      console.log('already there: ', snapshot.val(), userData);
+      // console.log('already there: ', snapshot.val(), userData);
     }
   } catch (err) {
-    console.error(err);
+    if (document.getElementById('xxx')) {
+      document.getElementById('xxx').click();
+    }
+    throw err;
   }
 };
 
