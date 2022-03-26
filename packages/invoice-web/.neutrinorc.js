@@ -3,6 +3,7 @@ const react = require("@neutrinojs/react");
 const mocha = require("@neutrinojs/mocha");
 const typescript = require("neutrinojs-typescript");
 const typescriptLint = require("neutrinojs-typescript-eslint");
+const eslint = require("@neutrinojs/eslint")
 
 module.exports = {
   options: {
@@ -17,7 +18,15 @@ module.exports = {
     },
     typescript(),
     typescriptLint(),
-    airbnb(),
+    airbnb({      
+      eslint: {baseConfig: {
+      rules: {
+        "react/react-in-jsx-scope": "off",
+        "import/no-extraneous-dependencies": "off",
+      }
+    }
+    }
+}),
     react({
       html: {
         title: "invoice-web",

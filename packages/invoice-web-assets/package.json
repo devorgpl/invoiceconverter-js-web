@@ -1,0 +1,36 @@
+{
+  "name": "@devorgpl/invoice-web-assets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "webpack-dev-server --mode development --open",
+    "build": "webpack --mode production",
+    "lint": "eslint --cache --format codeframe --ext mjs,tsx src",
+    "lint:fix": "eslint --fix --cache --format codeframe --ext mjs,tsx src",
+    "prebuild": "rewrite-tsconfig",
+    "prelint": "rewrite-tsconfig"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@devorgpl/invoice-lib": "*",
+    "@devorgpl/invoice-web-assets": "*",
+    "firebase": "^9.6.10",
+    "prop-types": "^15.8.1",
+    "axios": "^0.26.1",
+    "react-hot-loader": "^4.13.0",
+    "react-firebase-hooks": "^5.0.3",
+    "iconv-lite": "^0.6.3",
+    "chart.js": "3.4.1",
+    "chroma-js": "2.4.2",
+    "stylis": "4.0.13",
+    "stylis-plugin-rtl": "2.1.1",
+    "web-vitals": "2.1.4"
+  },
+  "devDependencies": {
+
+  }
+}

@@ -1,5 +1,15 @@
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+
+// Soft UI Dashboard React Context Provider
+import { SoftUIControllerProvider } from './context/context';
 import App from './App';
 
-render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  <BrowserRouter>
+    <SoftUIControllerProvider>
+      <App />
+    </SoftUIControllerProvider>
+  </BrowserRouter>, document.getElementById('root'),
+);
