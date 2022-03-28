@@ -22,7 +22,7 @@ const MenuWrapper = styled(List)(
       padding: ${theme.spacing(0.8, 2)};
       line-height: 1.4;
     }
-`
+`,
 );
 
 const SubMenuWrapper = styled(List)(
@@ -122,12 +122,13 @@ const SubMenuWrapper = styled(List)(
         }
       }
     }
-`
+`,
 );
 
+/* eslint @typescript-eslint/no-use-before-define: "off" */
 const renderSidebarMenuItems = ({
   items,
-  path
+  path,
 }: {
   items: MenuItem[];
   path: string;
@@ -140,7 +141,7 @@ const renderSidebarMenuItems = ({
 const reduceChildRoutes = ({
   ev,
   path,
-  item
+  item,
 }: {
   ev: JSX.Element[];
   path: string;
@@ -150,13 +151,13 @@ const reduceChildRoutes = ({
 
   const exactMatch = item.link ? !!matchPath({
     path: item.link,
-    end: true
+    end: true,
   }, path) : false;
 
   if (item.items) {
     const partialMatch = item.link ? !!matchPath({
       path: item.link,
-      end: false
+      end: false,
     }, path) : false;
 
     ev.push(
@@ -171,9 +172,9 @@ const reduceChildRoutes = ({
       >
         {renderSidebarMenuItems({
           path,
-          items: item.items
+          items: item.items,
         })}
-      </SidebarMenuItem>
+      </SidebarMenuItem>,
     );
   } else {
     ev.push(
@@ -184,7 +185,7 @@ const reduceChildRoutes = ({
         link={item.link}
         badge={item.badge}
         icon={item.icon}
-      />
+      />,
     );
   }
 
@@ -205,7 +206,7 @@ function SidebarMenu() {
         >
           {renderSidebarMenuItems({
             items: section.items,
-            path: location.pathname
+            path: location.pathname,
           })}
         </MenuWrapper>
       ))}

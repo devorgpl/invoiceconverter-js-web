@@ -37,9 +37,9 @@ const menuItems: MenuItems[] = [
       {
         name: 'Overview',
         link: '/overview',
-        icon: DesignServicesTwoToneIcon
-      }
-    ]
+        icon: DesignServicesTwoToneIcon,
+      },
+    ],
   },
   {
     heading: 'Dashboards',
@@ -47,14 +47,14 @@ const menuItems: MenuItems[] = [
       {
         name: 'Crypto',
         link: '/dashboards/crypto',
-        icon: BrightnessLowTwoToneIcon
+        icon: BrightnessLowTwoToneIcon,
       },
       {
         name: 'Messenger',
         icon: MmsTwoToneIcon,
-        link: '/dashboards/messenger'
+        link: '/dashboards/messenger',
       },
-    ]
+    ],
   },
   {
     heading: 'Management',
@@ -62,7 +62,7 @@ const menuItems: MenuItems[] = [
       {
         name: 'Transactions',
         icon: TableChartTwoToneIcon,
-        link: '/management/transactions'
+        link: '/management/transactions',
       },
       {
         name: 'User Profile',
@@ -71,15 +71,15 @@ const menuItems: MenuItems[] = [
         items: [
           {
             name: 'Profile Details',
-            link: '/management/profile/details'
+            link: '/management/profile/details',
           },
           {
             name: 'User Settings',
-            link: '/management/profile/settings'
-          }
-        ]
-      }
-    ]
+            link: '/management/profile/settings',
+          },
+        ],
+      },
+    ],
   },
   {
     heading: 'Components',
@@ -87,49 +87,49 @@ const menuItems: MenuItems[] = [
       {
         name: 'Buttons',
         icon: BallotTwoToneIcon,
-        link: '/components/buttons'
+        link: '/components/buttons',
       },
       {
         name: 'Modals',
         icon: BeachAccessTwoToneIcon,
-        link: '/components/modals'
+        link: '/components/modals',
       },
       {
         name: 'Accordions',
         icon: EmojiEventsTwoToneIcon,
-        link: '/components/accordions'
+        link: '/components/accordions',
       },
       {
         name: 'Tabs',
         icon: FilterVintageTwoToneIcon,
-        link: '/components/tabs'
+        link: '/components/tabs',
       },
       {
         name: 'Badges',
         icon: HowToVoteTwoToneIcon,
-        link: '/components/badges'
+        link: '/components/badges',
       },
       {
         name: 'Tooltips',
         icon: LocalPharmacyTwoToneIcon,
-        link: '/components/tooltips'
+        link: '/components/tooltips',
       },
       {
         name: 'Avatars',
         icon: RedeemTwoToneIcon,
-        link: '/components/avatars'
+        link: '/components/avatars',
       },
       {
         name: 'Cards',
         icon: SettingsTwoToneIcon,
-        link: '/components/cards'
+        link: '/components/cards',
       },
       {
         name: 'Forms',
         icon: TrafficTwoToneIcon,
-        link: '/components/forms'
+        link: '/components/forms',
       },
-    ]
+    ],
   },
   {
     heading: 'Extra Pages',
@@ -141,24 +141,24 @@ const menuItems: MenuItems[] = [
         items: [
           {
             name: 'Error 404',
-            link: '/status/404'
+            link: '/status/404',
           },
           {
             name: 'Error 500',
-            link: '/status/500'
+            link: '/status/500',
           },
           {
             name: 'Maintenance',
-            link: '/status/maintenance'
+            link: '/status/maintenance',
           },
           {
             name: 'Coming Soon',
-            link: '/status/coming-soon'
-          }
-        ]
-      }
-    ]
-  }
+            link: '/status/coming-soon',
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export default menuItems;

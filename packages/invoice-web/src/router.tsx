@@ -27,7 +27,7 @@ const routes: RouteObject[] = [
     children: [
       {
         path: 'main',
-        element: <MainPage />
+        element: <MainPage />,
       },
       {
         path: 'overview',
@@ -36,7 +36,7 @@ const routes: RouteObject[] = [
             to="/"
             replace
           />
-        )
+        ),
       },
       {
         path: 'status',
@@ -48,15 +48,15 @@ const routes: RouteObject[] = [
                 to="404"
                 replace
               />
-            )
-          }
-        ]
+            ),
+          },
+        ],
       },
       {
         path: '*',
-        element: <ConvertPage />
+        element: <ConvertPage />,
       },
-    ]
+    ],
   },
   {
     path: 'dashboards',
@@ -71,14 +71,14 @@ const routes: RouteObject[] = [
             to="/dashboards/convert"
             replace
           />
-        )
+        ),
       },
       {
         path: 'convert',
-        element: <ConvertPage />
-      }
-    ]
-  }
+        element: <ConvertPage />,
+      },
+    ],
+  },
 ];
 
 export default routes;

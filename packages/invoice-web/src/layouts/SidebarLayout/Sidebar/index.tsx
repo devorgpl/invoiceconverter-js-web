@@ -21,7 +21,7 @@ const SidebarWrapper = styled(Box)(
             border-top-right-radius: ${theme.general.borderRadius};
             border-bottom-right-radius: ${theme.general.borderRadius};
         }
-`
+`,
 );
 
 const TopSection = styled(Box)(
@@ -31,7 +31,7 @@ const TopSection = styled(Box)(
         align-items: center;
         margin: 0 ${theme.spacing(2)} ${theme.spacing(2)};
         border-bottom: ${theme.sidebar.dividerBg} solid 1px;
-`
+`,
 );
 
 function Sidebar() {

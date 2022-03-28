@@ -10,7 +10,7 @@ const LogoWrapper = styled(Link)(
         display: flex;
         text-decoration: none;
         font-weight: ${theme.typography.fontWeightBold};
-`
+`,
 );
 
 const LogoSignWrapper = styled(Box)(
@@ -19,7 +19,7 @@ const LogoSignWrapper = styled(Box)(
         height: 38px;
         margin-top: 4px;
         transform: scale(.8);
-`
+`,
 );
 
 const LogoSign = styled(Box)(
@@ -56,7 +56,7 @@ const LogoSign = styled(Box)(
         &:after {
             background: ${theme.palette.secondary.main};
         }
-`
+`,
 );
 
 const LogoSignInner = styled(Box)(
@@ -69,13 +69,13 @@ const LogoSignInner = styled(Box)(
         z-index: 5;
         border-radius: ${theme.general.borderRadiusSm};
         background: ${theme.header.background};
-`
+`,
 );
 
 const LogoTextWrapper = styled(Box)(
   ({ theme }) => `
         padding-left: ${theme.spacing(1)};
-`
+`,
 );
 
 const VersionBadge = styled(Box)(
@@ -88,14 +88,14 @@ const VersionBadge = styled(Box)(
         display: inline-block;
         line-height: 1;
         font-size: ${theme.typography.pxToRem(11)};
-`
+`,
 );
 
 const LogoText = styled(Box)(
   ({ theme }) => `
         font-size: ${theme.typography.pxToRem(15)};
         font-weight: ${theme.typography.fontWeightBold};
-`
+`,
 );
 
 function Logo() {

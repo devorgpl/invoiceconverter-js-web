@@ -78,7 +78,7 @@ SidebarMenuItem.propTypes = {
   icon: PropTypes.elementType,
   badge: PropTypes.string,
   open: PropTypes.bool,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
 };
 
 SidebarMenuItem.defaultProps = {

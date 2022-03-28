@@ -16,7 +16,7 @@ ReactDOM.render(
       </BrowserRouter>
     </SidebarProvider>
   </HelmetProvider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 serviceWorker.unregister();

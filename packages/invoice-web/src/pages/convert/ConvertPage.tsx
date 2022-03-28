@@ -12,7 +12,9 @@ function ConvertPage(): React.ReactElement {
         <Helmet>
           <title>Invoice converter</title>
         </Helmet>
-        <PageTitleWrapper />
+        <PageTitleWrapper>
+          Invoice converter
+        </PageTitleWrapper>
         <Convert />
         <Footer />
       </>

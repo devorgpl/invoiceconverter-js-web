@@ -9,7 +9,7 @@ interface BaseLayoutProps {
 const BaseLayout: FC<BaseLayoutProps> = ({ children }) => <>{children || <Outlet />}</>;
 
 BaseLayout.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default BaseLayout;

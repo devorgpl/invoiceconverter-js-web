@@ -20,7 +20,7 @@ const MainWrapper = styled(Box)(
         @media (min-width: ${theme.breakpoints.values.lg}px) {
             padding-left: ${theme.sidebar.width};
         }
-`
+`,
 );
 
 const MainContent = styled(Box)(
@@ -28,7 +28,7 @@ const MainContent = styled(Box)(
         margin-top: ${theme.header.height};
         flex: 1 1 auto;
         overflow: auto;
-`
+`,
 );
 
 const SidebarLayout: FC<SidebarLayoutProps> = () => (

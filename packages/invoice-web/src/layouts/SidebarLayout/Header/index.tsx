@@ -27,7 +27,7 @@ const HeaderWrapper = styled(Box)(
             left: ${theme.sidebar.width};
             width: auto;
         }
-`
+`,
 );
 
 function Header() {

@@ -4,7 +4,7 @@ import { StylesProvider } from '@mui/styles';
 import { themeCreator } from './base';
 
 export const ThemeContext = React.createContext(
-  (themeName: string): void => { }
+  (themeName: string): void => { },
 );
 
 const ThemeProviderWrapper: React.FC = (props) => {

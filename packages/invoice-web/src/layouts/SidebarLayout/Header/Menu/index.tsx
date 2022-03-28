@@ -4,7 +4,7 @@ import {
   ListItem,
   ListItemText,
   Menu,
-  MenuItem
+  MenuItem,
 } from '@mui/material';
 import React, { useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -59,7 +59,7 @@ const ListWrapper = styled(Box)(
                 }
             }
         }
-`
+`,
 );
 
 function HeaderMenu() {

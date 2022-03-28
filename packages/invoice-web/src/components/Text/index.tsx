@@ -48,7 +48,7 @@ const TextWrapper = styled('span')(
           color: ${theme.palette.info.main}
         }
       }
-`
+`,
 );
 
 const Text: FC<TextProps> = ({
@@ -72,8 +72,8 @@ Text.propTypes = {
     'warning',
     'success',
     'info',
-    'black'
-  ])
+    'black',
+  ]),
 };
 
 export default Text;
