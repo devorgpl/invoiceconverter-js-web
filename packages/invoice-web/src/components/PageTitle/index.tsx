@@ -46,5 +46,10 @@ PageTitle.propTypes = {
     subHeading: PropTypes.string,
     docs: PropTypes.string,
 };
+PageTitle.defaultProps = {
+  heading: null,
+  subHeading: null,
+  docs: null,
+};
 
 export default PageTitle;

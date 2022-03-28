@@ -26,16 +26,14 @@ module.exports = {
         "max-len": 0,
         "quotes": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off",
-        "object-curly-newline": "off",
         "react/jsx-props-no-spreading": "off",
-        "react/forbid-prop-types": "off",
         "@typescript-eslint/no-unused-vars": "off",
         "react/destructuring-assignment": "off",
         "@typescript-eslint/no-shadow": "off",
+
+        "import/prefer-default-export": "off",
         "react/require-default-props": "off",
         "jsx-a11y/anchor-is-valid": "off",
-        "import/prefer-default-export": "off",
-        "prefer-template": "off",
       }
     }
     }

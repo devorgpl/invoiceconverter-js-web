@@ -1,5 +1,7 @@
 import React from 'react';
-import { Box, Container, Link, Typography } from '@mui/material';
+import {
+ Box, Container, Link, Typography,
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 const FooterWrapper = styled(Box)(

@@ -1,4 +1,6 @@
-import { alpha, createTheme, lighten, darken } from '@mui/material';
+import {
+ alpha, createTheme, lighten, darken,
+} from '@mui/material';
 import '@mui/lab/themeAugmentation';
 
 const themeColors = {
@@ -367,10 +369,10 @@ export const PureLightTheme = createTheme({
         },
         '#nprogress .peg': {
           boxShadow:
-            '0 0 10px '
-            + colors.primary.main
-            + ', 0 0 5px'
-            + colors.primary.main,
+            `0 0 10px ${
+             colors.primary.main
+             }, 0 0 5px${
+             colors.primary.main}`,
         },
         ':root': {
           '--swiper-theme-color': colors.primary.main,
@@ -566,7 +568,7 @@ export const PureLightTheme = createTheme({
         containedSecondary: {
           backgroundColor: colors.secondary.main,
           color: colors.alpha.white[100],
-          border: '1px solid ' + colors.alpha.black[30],
+          border: `1px solid ${colors.alpha.black[30]}`,
         },
         outlinedSecondary: {
           backgroundColor: colors.alpha.white[100],
@@ -743,7 +745,7 @@ export const PureLightTheme = createTheme({
           height: 38,
           minHeight: 38,
           borderRadius: 6,
-          border: '1px solid ' + colors.primary.dark,
+          border: `1px solid ${colors.primary.dark}`,
         },
         scrollableX: {
           overflow: 'visible !important',
@@ -923,11 +925,11 @@ export const PureLightTheme = createTheme({
         },
         outlined: {
           backgroundColor: colors.alpha.white[100],
-          boxShadow: '0 0 0 6px ' + colors.alpha.white[100],
+          boxShadow: `0 0 0 6px ${colors.alpha.white[100]}`,
         },
         outlinedPrimary: {
           backgroundColor: colors.alpha.white[100],
-          boxShadow: '0 0 0 6px ' + colors.alpha.white[100],
+          boxShadow: `0 0 0 6px ${colors.alpha.white[100]}`,
         },
       },
     },
@@ -992,17 +994,17 @@ export const PureLightTheme = createTheme({
         },
         thumb: {
           backgroundColor: colors.alpha.white[100],
-          border: '1px solid ' + colors.alpha.black[30],
+          border: `1px solid ${colors.alpha.black[30]}`,
           boxShadow:
-            '0px 9px 14px '
-            + colors.alpha.black[10]
-            + ', 0px 2px 2px '
-            + colors.alpha.black[10],
+            `0px 9px 14px ${
+             colors.alpha.black[10]
+             }, 0px 2px 2px ${
+             colors.alpha.black[10]}`,
         },
         track: {
           backgroundColor: colors.alpha.black[5],
-          border: '1px solid ' + colors.alpha.black[10],
-          boxShadow: 'inset 0px 1px 1px ' + colors.alpha.black[10],
+          border: `1px solid ${colors.alpha.black[10]}`,
+          boxShadow: `inset 0px 1px 1px ${colors.alpha.black[10]}`,
           opacity: 1,
         },
         colorPrimary: {

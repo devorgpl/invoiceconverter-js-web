@@ -1,9 +1,13 @@
-import React, { FC, ReactNode, useState, useContext } from 'react';
+import React, {
+ FC, ReactNode, useState, useContext,
+} from 'react';
 import { NavLink as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 
 import PropTypes from 'prop-types';
-import { Button, Badge, Collapse, ListItem } from '@mui/material';
+import {
+ Button, Badge, Collapse, ListItem,
+} from '@mui/material';
 
 import ExpandLessTwoToneIcon from '@mui/icons-material/ExpandLessTwoTone';
 import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
@@ -84,6 +88,10 @@ SidebarMenuItem.propTypes = {
 SidebarMenuItem.defaultProps = {
   open: false,
   active: false,
+  badge: '',
+  icon: null,
+  link: null,
+  children: null,
 };
 
 export default SidebarMenuItem;
