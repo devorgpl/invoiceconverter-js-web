@@ -5,12 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "start": "webpack-dev-server --mode development --open",
-    "build": "webpack --mode production",
+    "build": "tsc",
     "lint": "eslint --cache --format codeframe --ext mjs,tsx src",
-    "lint:fix": "eslint --fix --cache --format codeframe --ext mjs,tsx src",
-    "prebuild": "rewrite-tsconfig",
-    "prelint": "rewrite-tsconfig"
+    "lint:fix": "eslint --fix --cache --format codeframe --ext mjs,tsx src"
   },
   "keywords": [],
   "author": "",

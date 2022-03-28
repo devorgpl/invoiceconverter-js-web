@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "compile": "tsc -b -w -i",
+    "build-workspaces": "npm run build --workspaces",
     "build": "tsc",
     "test": "mocha -r ts-node/register tests/**/*.test.ts",
     "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test",
@@ -37,6 +38,7 @@
   "workspaces": [
     "packages/ksef-model-lib",
     "packages/invoice-lib",
+    "packages/invoice-web-assets",
     "packages/*"
   ],
   "dependencies": {

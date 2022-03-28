@@ -20,6 +20,9 @@
     },
     {
       "path": "./packages/ksef-model-lib"
+    },
+    {
+      "path": "./packages/invoice-web-assets"
     }
   ],
   "files": ["./src/index.ts"]
