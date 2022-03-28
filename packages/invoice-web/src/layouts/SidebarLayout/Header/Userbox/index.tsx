@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { NavLink } from 'react-router-dom';
 
@@ -65,7 +65,7 @@ function HeaderUserbox() {
     jobtitle: 'Project Manager'
   };
 
-  const ref = useRef<any>(null);
+  const ref = useRef<React.ReactNode>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
 
   const handleOpen = (): void => {

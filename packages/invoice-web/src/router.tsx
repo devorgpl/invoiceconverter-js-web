@@ -23,7 +23,7 @@ const ConvertPage = Loader(lazy(() => import('./pages/convert/ConvertPage')));
 const routes: RouteObject[] = [
   {
     path: '*',
-    element: <BaseLayout />,
+    element: <SidebarLayout />,
     children: [
       {
         path: 'main',

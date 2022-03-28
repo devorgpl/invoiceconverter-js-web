@@ -1,3 +1,4 @@
+import React from 'react';
 import type { FC, ReactNode } from 'react';
 import { styled } from '@mui/material/styles';
 import { Box } from '@mui/material';

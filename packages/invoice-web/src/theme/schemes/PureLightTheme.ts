@@ -367,10 +367,10 @@ export const PureLightTheme = createTheme({
         },
         '#nprogress .peg': {
           boxShadow:
-            '0 0 10px ' +
-            colors.primary.main +
-            ', 0 0 5px' +
-            colors.primary.main
+            '0 0 10px ' 
+            + colors.primary.main 
+            + ', 0 0 5px' 
+            + colors.primary.main
         },
         ':root': {
           '--swiper-theme-color': colors.primary.main
@@ -994,10 +994,10 @@ export const PureLightTheme = createTheme({
           backgroundColor: colors.alpha.white[100],
           border: '1px solid ' + colors.alpha.black[30],
           boxShadow:
-            '0px 9px 14px ' +
-            colors.alpha.black[10] +
-            ', 0px 2px 2px ' +
-            colors.alpha.black[10]
+            '0px 9px 14px ' 
+            + colors.alpha.black[10] 
+            + ', 0px 2px 2px ' 
+            + colors.alpha.black[10]
         },
         track: {
           backgroundColor: colors.alpha.black[5],

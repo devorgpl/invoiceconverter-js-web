@@ -1,4 +1,4 @@
-import { forwardRef, Ref, useState, ReactElement, ChangeEvent } from 'react';
+import React, { forwardRef, Ref, useState, ReactElement, ChangeEvent } from 'react';
 import {
   Avatar,
   Link,
@@ -29,7 +29,7 @@ import FindInPageTwoToneIcon from '@mui/icons-material/FindInPageTwoTone';
 import ChevronRightTwoToneIcon from '@mui/icons-material/ChevronRightTwoTone';
 
 const Transition = forwardRef((
-  props: TransitionProps & { children?: ReactElement<any, any> },
+  props: TransitionProps & { children: ReactElement<React.ReactNode, string> },
   ref: Ref<unknown>
 ) => <Slide direction="down" ref={ref} {...props} />);
 

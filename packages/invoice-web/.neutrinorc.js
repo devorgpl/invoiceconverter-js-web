@@ -31,18 +31,15 @@ module.exports = {
         "react/jsx-props-no-spreading": "off",
         "react/forbid-prop-types": "off",
         "import/no-unresolved": "off",
-        "import/order": "off",
         "@typescript-eslint/no-unused-vars": "off",
         "comma-dangle": "off",
         "no-use-before-define": "off",
         "react/destructuring-assignment": "off",
         "@typescript-eslint/no-shadow": "off",
         "react/require-default-props": "off",
-        "@typescript-eslint/no-explicit-any": "off",
         "jsx-a11y/anchor-is-valid": "off",
         "import/prefer-default-export": "off",
         "prefer-template": "off",
-        "operator-linebreak": "off",
       }
     }
     }

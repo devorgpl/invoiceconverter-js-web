@@ -10,7 +10,7 @@ import {
   Tooltip,
   Typography
 } from '@mui/material';
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import NotificationsActiveTwoToneIcon from '@mui/icons-material/NotificationsActiveTwoTone';
 import { styled } from '@mui/material/styles';
 
@@ -41,7 +41,7 @@ const NotificationsBadge = styled(Badge)(
 );
 
 function HeaderNotifications() {
-  const ref = useRef<any>(null);
+  const ref = useRef<React.ReactNode>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
 
   const handleOpen = (): void => {
