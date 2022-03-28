@@ -3,11 +3,10 @@ const react = require("@neutrinojs/react");
 const mocha = require("@neutrinojs/mocha");
 const typescript = require("neutrinojs-typescript");
 const typescriptLint = require("neutrinojs-typescript-eslint");
-const eslint = require("@neutrinojs/eslint")
 
 module.exports = {
   options: {
-    root: __dirname,
+    root: __dirname
   },
   use: [
     (neutrino) => {
@@ -23,11 +22,32 @@ module.exports = {
       rules: {
         "react/react-in-jsx-scope": "off",
         "import/no-extraneous-dependencies": "off",
+        "react/jsx-filename-extension": [0, { "allow": "as-needed" }],
+        "max-len": 0,
+        "quotes": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "object-curly-newline": "off",
+        "no-trailing-spaces": "off",
+        "react/jsx-props-no-spreading": "off",
+        "react/forbid-prop-types": "off",
+        "import/no-unresolved": "off",
+        "import/order": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "comma-dangle": "off",
+        "no-use-before-define": "off",
+        "react/destructuring-assignment": "off",
+        "@typescript-eslint/no-shadow": "off",
+        "react/require-default-props": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "jsx-a11y/anchor-is-valid": "off",
+        "import/prefer-default-export": "off",
+        "prefer-template": "off",
+        "operator-linebreak": "off",
       }
     }
     }
 }),
-    react({
+react({
       html: {
         title: "invoice-web",
       },

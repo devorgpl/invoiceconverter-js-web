@@ -1,51 +1,22 @@
-/* eslint @typescript-eslint/no-unused-vars: "off" */
-import React, { useState } from 'react';
-// react-router components
-import {
- Routes, Route, Navigate, useLocation,
-} from 'react-router-dom';
+import React from 'react';
+import { useRoutes } from 'react-router-dom';
+import routes from './router';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
-// @mui material components
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import theme from '@devorgpl/invoice-web-assets/assets/theme';
+import ThemeProvider from './theme/ThemeProvider';
+import { CssBaseline } from '@mui/material';
 
-import './App.css';
-import TopBar from './components/top-bar/TopBar';
-import { useSoftUIController } from './context/context';
-import ConvertPage from './pages/convert/ConvertPage';
-import routes from './routes';
+const App = () => {
+  const content = useRoutes(routes);
 
-function App(): React.ReactElement {
-  const [controller, dispatch] = useSoftUIController();
-  const {
- miniSidenav, direction, layout, openConfigurator, sidenavColor,
-} = controller;
-  // const [onMouseEnter, setOnMouseEnter] = useState(false);
-  // const [rtlCache, setRtlCache] = useState(null);
-  // const { pathname } = useLocation();
-
-  const getRoutes = (allRoutes) => allRoutes.map((route) => {
-    if (route.collapse) {
-      return getRoutes(route.collapse);
-    }
-
-    if (route.route) {
-      return <Route path={route.route} element={route.component} key={route.key} />;
-    }
-
-    return null;
-  });
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <TopBar />
-      <Routes>
-        {getRoutes(routes)}
-        <Route path="*" element={<Navigate to="/convert" />} />
-      </Routes>
+    <ThemeProvider>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <CssBaseline />
+        {content}
+      </LocalizationProvider>
     </ThemeProvider>
   );
-}
-
+};
 export default App;

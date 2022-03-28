@@ -1,15 +1,22 @@
 import React from 'react';
+import App from './App';
 import ReactDOM from 'react-dom';
+import * as serviceWorker from './serviceWorker';
+import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter } from 'react-router-dom';
 
-// Soft UI Dashboard React Context Provider
-import { SoftUIControllerProvider } from './context/context';
-import App from './App';
+import 'nprogress/nprogress.css';
+import { SidebarProvider } from './contexts/SidebarContext';
 
 ReactDOM.render(
-  <BrowserRouter>
-    <SoftUIControllerProvider>
-      <App />
-    </SoftUIControllerProvider>
-  </BrowserRouter>, document.getElementById('root'),
+  <HelmetProvider>
+    <SidebarProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </SidebarProvider>
+  </HelmetProvider>,
+  document.getElementById('root')
 );
+
+serviceWorker.unregister();

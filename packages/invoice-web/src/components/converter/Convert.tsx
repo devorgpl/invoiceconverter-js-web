@@ -4,7 +4,7 @@ import { EppGenerator } from '@devorgpl/invoice-lib/bin/src/generators/EppGenera
 import { encode } from 'iconv-lite';
 import './Convert.css';
 
-function ConvertPage(): React.ReactElement {
+function Convert(): React.ReactElement {
     const fileInputRef = useRef<HTMLInputElement>();
     const uploadRef = useRef<HTMLDivElement>();
     const uploadModalRef = useRef<HTMLDivElement>();
@@ -132,4 +132,4 @@ function ConvertPage(): React.ReactElement {
     );
 }
 
-export default ConvertPage;
+export default Convert;
