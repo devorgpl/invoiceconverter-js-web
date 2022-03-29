@@ -1,10 +1,8 @@
 import React, { Suspense, lazy } from 'react';
 import { Navigate, RouteObject } from 'react-router-dom';
 
-import SidebarLayout from './layouts/SidebarLayout';
-import BaseLayout from './layouts/BaseLayout';
-
 import SuspenseLoader from './components/SuspenseLoader';
+import TopMenuLayout from './layouts/TopMenuLayout';
 
 const Loader = (Component) => (props) => (
   <Suspense fallback={<SuspenseLoader />}>
@@ -23,11 +21,14 @@ const ConvertPage = Loader(lazy(() => import('./pages/convert/ConvertPage')));
 const routes: RouteObject[] = [
   {
     path: '*',
-    element: <SidebarLayout />,
+    element: <TopMenuLayout />,
     children: [
       {
-        path: 'main',
-        element: <MainPage />,
+        path: '',
+        element: <Navigate
+          to="/converter"
+          replace
+        />,
       },
       {
         path: 'overview',
@@ -61,7 +62,7 @@ const routes: RouteObject[] = [
   {
     path: 'dashboards',
     element: (
-      <SidebarLayout />
+      <TopMenuLayout />
     ),
     children: [
       {

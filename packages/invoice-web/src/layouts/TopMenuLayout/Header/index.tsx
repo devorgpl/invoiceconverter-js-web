@@ -38,24 +38,9 @@ function Header() {
   return (
     <HeaderWrapper display="flex" alignItems="center">
       <Box display="flex" alignItems="center">
-        <Hidden lgUp>
-          <Logo />
-        </Hidden>
-        <Hidden mdDown>
-          <HeaderMenu />
-        </Hidden>
+        <HeaderMenu />
       </Box>
-      <Box display="flex" alignItems="center">
-        <HeaderButtons />
-        {/* <HeaderUserbox /> */}
-        <Hidden lgUp>
-          <Tooltip arrow title="Toggle Menu">
-            <IconButton color="primary" onClick={toggleSidebar}>
-              {!sidebarToggle ? <MenuTwoToneIcon /> : <CloseTwoToneIcon />}
-            </IconButton>
-          </Tooltip>
-        </Hidden>
-      </Box>
+      <Box display="flex" alignItems="center" />
     </HeaderWrapper>
   );
 }

@@ -96,9 +96,6 @@ function Convert(): React.ReactElement {
 
     return (
       <>
-        <div className="ConvertPage">
-          Convert page
-        </div>
         <div className="container">
           <div
             role="presentation"

@@ -4,10 +4,9 @@ import { styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 
-import Sidebar from './Sidebar';
 import Header from './Header';
 
-interface SidebarLayoutProps {
+interface TopMenuLayoutProps {
   children?: ReactNode;
 }
 
@@ -16,10 +15,6 @@ const MainWrapper = styled(Box)(
         flex: 1 1 auto;
         display: flex;
         height: 100%;
-        
-/*         @media (min-width: ${theme.breakpoints.values.lg}px) {
-            padding-left: ${theme.sidebar.width};
-        } */
 `,
 );
 
@@ -31,9 +26,8 @@ const MainContent = styled(Box)(
 `,
 );
 
-const SidebarLayout: FC<SidebarLayoutProps> = () => (
+const TopMenuLayout: FC<TopMenuLayoutProps> = () => (
   <>
-    {/* <Sidebar /> */}
     <MainWrapper>
       <Header />
       <MainContent>
@@ -43,4 +37,4 @@ const SidebarLayout: FC<SidebarLayoutProps> = () => (
   </>
   );
 
-export default SidebarLayout;
+export default TopMenuLayout;
