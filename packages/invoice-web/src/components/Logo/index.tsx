@@ -1,7 +1,8 @@
 import React from 'react';
-import { Box, Hidden, Tooltip } from '@mui/material';
+import { Box, Hidden } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
+import logo from '../../assets/logo.png';
 
 const LogoWrapper = styled(Link)(
   ({ theme }) => `
@@ -75,6 +76,7 @@ const LogoSignInner = styled(Box)(
 const LogoTextWrapper = styled(Box)(
   ({ theme }) => `
         padding-left: ${theme.spacing(1)};
+        margin-top: 8px;
 `,
 );
 
@@ -102,16 +104,16 @@ function Logo() {
   return (
     <LogoWrapper to="/overview">
       <LogoSignWrapper>
-        <LogoSign>
-          <LogoSignInner />
-        </LogoSign>
+        <img src={logo} alt="Logo" height={48} />
       </LogoSignWrapper>
       <Hidden smDown>
         <LogoTextWrapper>
-          <Tooltip title="Version 1.1.0" arrow placement="right">
-            <VersionBadge>1.1</VersionBadge>
+          {/*           <Tooltip title="Version 1.0.0" arrow placement="right">
+            <VersionBadge>1.0</VersionBadge>
           </Tooltip>
-          <LogoText>Tokyo Free White</LogoText>
+ */}
+          {' '}
+          <LogoText>Moja Firma</LogoText>
         </LogoTextWrapper>
       </Hidden>
     </LogoWrapper>
