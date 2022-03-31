@@ -8,7 +8,6 @@ import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import PageTitleWrapper from '../../components/PageTitleWrapper';
 import Footer from '../../components/Footer';
-import Convert from '../../components/converter/Convert';
 import { useAuth } from '../../libs/firebase';
 import { Invoice, InvoiceService } from '../../services/InvoiceService';
 
@@ -35,7 +34,7 @@ function InvoiceRow(props: InvoiceRowProps): React.ReactElement {
             color="primary"
           />
         </TableCell>
-        <TableCell style={{maxWidth: '100px'}}>
+        <TableCell style={{ maxWidth: '100px' }}>
           <Typography
             variant="body1"
             fontWeight="bold"
@@ -46,7 +45,7 @@ function InvoiceRow(props: InvoiceRowProps): React.ReactElement {
             {invoice.meta.from}
           </Typography>
           <Typography variant="body2" color="text.secondary" noWrap>
-            format(cryptoOrder.orderDate, 'MMMM dd yyyy')
+            format(cryptoOrder.orderDate, yyyy-dd-MM)
           </Typography>
         </TableCell>
         <TableCell>
@@ -130,8 +129,8 @@ function InvoicesPage(): React.ReactElement {
     const [data, updateData] = useState({ data: [], output: [], loaded: false });
     if (!data.loaded) {
     InvoiceService.getAll(authx, (snapshot) => {
-        const intData = { data: [], output: [], loaded: true }
-        
+        const intData = { data: [], output: [], loaded: true };
+
         snapshot.forEach((el) => {
             intData.data.push(el.val());
             intData.output.push((<InvoiceRow invoice={el.val()} />));
@@ -139,7 +138,6 @@ function InvoicesPage(): React.ReactElement {
         updateData(intData);
       });
     }
-    console.log(data);
 
     return (
       <>
