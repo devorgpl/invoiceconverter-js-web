@@ -11,7 +11,9 @@ import { useRedirects } from './services/RouteService';
 
 const App = () => {
   const authx = useAuth();
-  const content = authx.isSignedIn? useRoutes(getRoutes(ROLES.AUTH, routes)):useRoutes(getRoutes(ROLES.NO_AUTH, routes));
+  const authRoutes = useRoutes(getRoutes(ROLES.AUTH, routes));
+  const noathRoutes = useRoutes(getRoutes(ROLES.NO_AUTH, routes));
+  const content = authx.isSignedIn ? authRoutes : noathRoutes;
   return (
     <ThemeProvider>
       <LocalizationProvider dateAdapter={AdapterDateFns}>

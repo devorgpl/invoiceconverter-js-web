@@ -6,9 +6,13 @@ import { Helmet } from "react-helmet-async";
 import PageTitleWrapper from "../../components/PageTitleWrapper";
 import Text from '../../components/Text';
 import Footer from "../../components/Footer";
-import { useAuth } from "../../libs/firebase";
+import { CustomUser, useAuth } from "../../libs/firebase";
 
-function PageHeader(props) {
+interface UserSettingsProps {
+    user?: CustomUser;
+}
+
+function PageHeader(props: UserSettingsProps) {
     return (
       <>
         <Typography variant="h3" component="h3" gutterBottom>
@@ -22,7 +26,7 @@ function PageHeader(props) {
     );
 }
 
-function ProfileData(props) {
+function ProfileData(props: UserSettingsProps) {
     return (
       <Grid container spacing={3}>
         <Grid item xs={12}>

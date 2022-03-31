@@ -56,10 +56,6 @@ export function useAuth() {
   return { auth, ...authState };
 }
 
-auth.onAuthStateChanged((user) => {
-  console.log('fb ', user);
-});
-
 export interface CustomUser {
   uid: string,
   displayName: string,
@@ -101,7 +97,7 @@ const intSignInWithGoogle = async (): Promise<void> => {
 };
 
 function signInWithGoogle(): Promise<void> {
-  return intSignInWithGoogle().catch(err=> {
+  return intSignInWithGoogle().catch((err) => {
     if (err.code === 'auth/popup-closed-by-user') {
       return;
     }

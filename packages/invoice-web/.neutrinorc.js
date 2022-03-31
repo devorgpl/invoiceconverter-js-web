@@ -30,6 +30,7 @@ module.exports = {
         "@typescript-eslint/no-unused-vars": "off",
         "react/destructuring-assignment": "off",
         "@typescript-eslint/no-shadow": "off",
+        "react-hooks/exhaustive-deps": "off",
 
         "import/prefer-default-export": "off",
         "react/require-default-props": "off",

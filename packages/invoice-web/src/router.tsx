@@ -95,8 +95,8 @@ const noAuthRedirects: RouteObjectCustom[] = [
           replace
         />,
       },
-    ]
-  }
+    ],
+  },
 ];
 
 const authRedirects: RouteObjectCustom[] = [
@@ -139,7 +139,8 @@ const authRedirects: RouteObjectCustom[] = [
         path: '*',
         element: <Navigate
           to="/app/converter"
-          replace />,
+          replace
+        />,
       },
     ],
   },
@@ -148,7 +149,7 @@ const authRedirects: RouteObjectCustom[] = [
 const routes: RouteObjectCustom[] = noAuthRoutes.concat(authRoutes, noAuthRedirects, authRedirects);
 
 export function getRoutes(role: ROLES, routes: RouteObjectCustom[]):RouteObjectCustom[] {
-  return routes.filter(r=>r.roles && r.roles.includes(role));
+  return routes.filter((r) => r.roles && r.roles.includes(role));
 }
 
 export default routes;

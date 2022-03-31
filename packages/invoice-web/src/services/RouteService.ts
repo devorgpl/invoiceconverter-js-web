@@ -20,35 +20,34 @@ enum ROLES {NO_AUTH, AUTH}
 const redirects = [{
     path: '/converter',
     roles: [ROLES.NO_AUTH],
-    fallback: '/app/converter'
-},{
+    fallback: '/app/converter',
+}, {
     path: '/app/converter',
     roles: [ROLES.AUTH],
-    fallback: '/converter'
+    fallback: '/converter',
 }];
 
 function useRedirects() {
-    let authx = useAuth()
+    const authx = useAuth();
     const [localAuth, setLocalAuth] = useState(!authx.isSignedIn);
-    let location = useLocation()
+    const location = useLocation();
     const [retFallback, setFallback] = useState(null);
-    authx.auth.onAuthStateChanged((user)=> {
+    authx.auth.onAuthStateChanged((user) => {
         if (localAuth === authx.isSignedIn) {
             return;
         }
         setLocalAuth(authx.isSignedIn);
         const roles = [];
-        if (!!user) {
-            roles.push(ROLES.AUTH)
+        if (user) {
+            roles.push(ROLES.AUTH);
         } else {
-            roles.push(ROLES.NO_AUTH)
+            roles.push(ROLES.NO_AUTH);
         }
         const fallback = redirects
-            .filter(r=>r.path === location.pathname)
-            .filter(r=>!r.roles.some(rr=>roles.includes(rr)))
-            .map(r=>r.fallback)
-            .find(f=>true);
-        console.log('check urls',localAuth, authx.isSignedIn, retFallback, fallback, location, user);
+            .filter((r) => r.path === location.pathname)
+            .filter((r) => !r.roles.some((rr) => roles.includes(rr)))
+            .map((r) => r.fallback)
+            .find((f) => true);
         if (fallback !== retFallback) {
         if (fallback) {
             setFallback(fallback);

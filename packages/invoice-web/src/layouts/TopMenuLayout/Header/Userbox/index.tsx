@@ -82,14 +82,14 @@ function HeaderUserbox() {
     handleClose();
     logout();
   };
-
-  let location = useLocation()
-      useEffect(
-      () => {
-        handleClose();
-      },
-      [location]
-    )
+/* eslint "react-hooks/exhaustive-deps": off */
+  const location = useLocation();
+  useEffect(
+    () => {
+      handleClose();
+    },
+    [location.pathname],
+  );
 
   const loggedInUser = (
     <>
