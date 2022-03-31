@@ -3,6 +3,8 @@ import { ComarchXmlParser } from '@devorgpl/invoice-lib/bin/src/parsers/ComarchX
 import { EppGenerator } from '@devorgpl/invoice-lib/bin/src/generators/EppGenerator';
 import { encode } from 'iconv-lite';
 import './Convert.css';
+import { InvoiceMeta, InvoiceService } from '../../services/InvoiceService';
+import { useAuth } from '../../libs/firebase';
 
 function Convert(): React.ReactElement {
     const fileInputRef = useRef<HTMLInputElement>();
@@ -10,6 +12,7 @@ function Convert(): React.ReactElement {
     const uploadModalRef = useRef<HTMLDivElement>();
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [validFiles, setValidFiles] = useState([]);
+    const authx = useAuth();
 
     useEffect(() => {
         const filteredArr = selectedFiles.reduce((acc, current) => {
@@ -68,6 +71,12 @@ function Convert(): React.ReactElement {
             file.text().then((data) => {
                 const parser = new ComarchXmlParser();
                 const parsed = parser.parse(data);
+                const meta: InvoiceMeta = {
+                    date: parsed.Naglowek.DataWytworzeniaFa,
+                    from: parsed.Podmiot1.DaneIdentyfikacyjne.PelnaNazwa,
+                    number: parsed.Fa.P_2,
+                };
+                InvoiceService.put(authx, { data: parsed, meta });
                 const generator = new EppGenerator();
                 const result = generator.generate(parsed);
                 const buffer:Buffer = encode(result, 'win1250');

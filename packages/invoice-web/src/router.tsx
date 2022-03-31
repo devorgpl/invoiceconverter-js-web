@@ -18,6 +18,7 @@ const MainPage = Loader(lazy(() => import('./pages/main/MainPage')));
 
 const ConvertPage = Loader(lazy(() => import('./pages/convert/ConvertPage')));
 const UserSettings = Loader(lazy(() => import('./pages/usersettings')));
+const InvoicesPage = Loader(lazy(() => import('./pages/invoices/InvoicesPage')));
 
 export enum ROLES {NO_AUTH, AUTH}
 
@@ -73,6 +74,10 @@ const authRoutes: RouteObjectCustom[] = [
       {
         path: 'converter',
         element: <ConvertPage />,
+      },
+      {
+        path: 'invoices',
+        element: <InvoicesPage />,
       },
       {
         path: 'usersettings',

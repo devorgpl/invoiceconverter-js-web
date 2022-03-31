@@ -11,6 +11,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
 import { topBarMenu, userTopBarMenu } from '../../../../services/RouteService';
+import { useAuth } from '../../../../libs/firebase';
 
 const ListWrapper = styled(Box)(
   ({ theme }) => `
@@ -64,7 +65,8 @@ const ListWrapper = styled(Box)(
 );
 
 function RenderMenu() {
-  const menuElements = topBarMenu;
+  const authx = useAuth();
+  const menuElements = authx.isSignedIn ? userTopBarMenu : topBarMenu;
 
   const items = menuElements.map((el) => (
     <ListItem

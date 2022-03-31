@@ -89,7 +89,8 @@ const intSignInWithGoogle = async (): Promise<void> => {
       await set(ref(db, `users/${user.uid}`), userData);
     }
   } catch (err) {
-    if (err.code === 'auth/popup-closed-by-user') {
+    if (['auth/popup-closed-by-user', 'auth/cancelled-popup-request']
+      .includes(err.code)) {
       return;
     }
     throw err;
