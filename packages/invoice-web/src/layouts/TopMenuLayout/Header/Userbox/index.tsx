@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 import {
   Avatar,
@@ -82,6 +82,14 @@ function HeaderUserbox() {
     handleClose();
     logout();
   };
+
+  let location = useLocation()
+      useEffect(
+      () => {
+        handleClose();
+      },
+      [location]
+    )
 
   const loggedInUser = (
     <>

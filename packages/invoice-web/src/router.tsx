@@ -19,15 +19,96 @@ const MainPage = Loader(lazy(() => import('./pages/main/MainPage')));
 const ConvertPage = Loader(lazy(() => import('./pages/convert/ConvertPage')));
 const UserSettings = Loader(lazy(() => import('./pages/usersettings')));
 
-const routes: RouteObject[] = [
+export enum ROLES {NO_AUTH, AUTH}
+
+export interface RouteObjectCustom extends RouteObject {
+  roles?: ROLES[]
+}
+
+const noAuthRoutes: RouteObjectCustom[] = [
   {
     path: '*',
     element: <TopMenuLayout />,
+    roles: [ROLES.NO_AUTH],
     children: [
       {
         path: '',
         element: <Navigate
           to="/converter"
+          replace
+        />,
+      },
+      {
+        path: 'converter',
+        element: (
+          <ConvertPage />
+        ),
+      },
+      {
+        path: '*',
+        element: <ConvertPage />,
+      },
+    ],
+  },
+
+];
+
+const authRoutes: RouteObjectCustom[] = [
+  {
+    path: 'app',
+    element: (
+      <TopMenuLayout />
+    ),
+    roles: [ROLES.AUTH],
+    children: [
+      {
+        path: '',
+        element: (
+          <Navigate
+            to="/app/converter"
+            replace
+          />
+        ),
+      },
+      {
+        path: 'converter',
+        element: <ConvertPage />,
+      },
+      {
+        path: 'usersettings',
+        element: <UserSettings />,
+      },
+    ],
+  },
+];
+
+const noAuthRedirects: RouteObjectCustom[] = [
+    {
+    path: 'app',
+    element: <TopMenuLayout />,
+    roles: [ROLES.NO_AUTH],
+    children: [
+      {
+        path: '*',
+        element: <Navigate
+          to="/"
+          replace
+        />,
+      },
+    ]
+  }
+];
+
+const authRedirects: RouteObjectCustom[] = [
+  {
+    path: '*',
+    element: <TopMenuLayout />,
+    roles: [ROLES.AUTH],
+    children: [
+      {
+        path: '',
+        element: <Navigate
+          to="/app/converter"
           replace
         />,
       },
@@ -56,35 +137,18 @@ const routes: RouteObject[] = [
       },
       {
         path: '*',
-        element: <ConvertPage />,
-      },
-    ],
-  },
-  {
-    path: 'app',
-    element: (
-      <TopMenuLayout />
-    ),
-    children: [
-      {
-        path: '',
-        element: (
-          <Navigate
-            to="/app/convert"
-            replace
-          />
-        ),
-      },
-      {
-        path: 'convert',
-        element: <ConvertPage />,
-      },
-      {
-        path: 'usersettings',
-        element: <UserSettings />,
+        element: <Navigate
+          to="/app/converter"
+          replace />,
       },
     ],
   },
 ];
+
+const routes: RouteObjectCustom[] = noAuthRoutes.concat(authRoutes, noAuthRedirects, authRedirects);
+
+export function getRoutes(role: ROLES, routes: RouteObjectCustom[]):RouteObjectCustom[] {
+  return routes.filter(r=>r.roles && r.roles.includes(role));
+}
 
 export default routes;

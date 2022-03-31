@@ -1,15 +1,17 @@
-import React from 'react';
-import { useRoutes } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Navigate, useLocation, useRoutes } from 'react-router-dom';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 import { CssBaseline } from '@mui/material';
 import ThemeProvider from './theme/ThemeProvider';
-import routes from './router';
+import routes, { getRoutes, ROLES } from './router';
+import { useAuth } from './libs/firebase';
+import { useRedirects } from './services/RouteService';
 
 const App = () => {
-  const content = useRoutes(routes);
-
+  const authx = useAuth();
+  const content = authx.isSignedIn? useRoutes(getRoutes(ROLES.AUTH, routes)):useRoutes(getRoutes(ROLES.NO_AUTH, routes));
   return (
     <ThemeProvider>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
