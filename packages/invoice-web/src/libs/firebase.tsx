@@ -1,6 +1,6 @@
 import { getAnalytics } from 'firebase/analytics';
 // Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
+import { FirebaseError, initializeApp } from 'firebase/app';
 import {
     signOut,
     getAuth,
@@ -35,9 +35,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
-connectAuthEmulator(auth, "http://localhost:9099");
 const db = getDatabase(app);
-connectDatabaseEmulator(db, "localhost", 9000);
+if (process.env.NODE_ENV === "development") {
+  connectAuthEmulator(auth, "http://localhost:9099");
+  connectDatabaseEmulator(db, "localhost", 9000);
+}
 
 export function useAuth() {
   const [authState, setAuthState] = useState({
@@ -71,7 +73,7 @@ export interface CustomUser {
 }
 
 const googleProvider = new GoogleAuthProvider();
-const signInWithGoogle = async (): Promise<void> => {
+const intSignInWithGoogle = async (): Promise<void> => {
   try {
     const res = await signInWithPopup(auth, googleProvider);
     const { user } = res;
@@ -88,23 +90,28 @@ const signInWithGoogle = async (): Promise<void> => {
     userData.authProvider = 'google';
     const snapshot = await get(child(ref(db), `users/${user.uid}`));
     if (!snapshot.exists()) {
-      console.log('new users: ', userData);
       await set(ref(db, `users/${user.uid}`), userData);
-    } else {
-      // console.log('already there: ', snapshot.val(), userData);
     }
   } catch (err) {
-    if (document.getElementById('xxx')) {
-      document.getElementById('xxx').click();
+    if (err.code === 'auth/popup-closed-by-user') {
+      return;
     }
     throw err;
   }
 };
 
+function signInWithGoogle(): Promise<void> {
+  return intSignInWithGoogle().catch(err=> {
+    if (err.code === 'auth/popup-closed-by-user') {
+      return;
+    }
+    throw err;
+  });
+}
+
 const logout = (): void => {
     signOut(auth);
 };
-console.log(auth.currentUser);
 
 export {
     auth,
