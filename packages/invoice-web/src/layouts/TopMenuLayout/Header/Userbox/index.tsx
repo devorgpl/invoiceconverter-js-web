@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { NavLink } from 'react-router-dom';
 
@@ -16,12 +16,13 @@ import {
   Typography,
 } from '@mui/material';
 
-import InboxTwoToneIcon from '@mui/icons-material/InboxTwoTone';
 import { styled } from '@mui/material/styles';
 import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
 import AccountBoxTwoToneIcon from '@mui/icons-material/AccountBoxTwoTone';
 import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
-import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
+import {
+  CustomUser, logout, signInWithGoogle, useAuth,
+} from '../../../../libs/firebase';
 
 const UserBoxButton = styled(Button)(
   ({ theme }) => `
@@ -58,33 +59,39 @@ const UserBoxDescription = styled(Typography)(
 `,
 );
 
+interface HeaderState {
+    isOpen: boolean,
+    currentUser: CustomUser,
+}
+
 function HeaderUserbox() {
-  const user = {
-    name: 'Catherine Pike',
-    avatar: '/static/images/avatars/1.jpg',
-    jobtitle: 'Project Manager',
-  };
+  const authx = useAuth();
 
   const ref = useRef<React.ReactNode>(null);
-  const [isOpen, setOpen] = useState<boolean>(false);
+  const [curState, setState] = useState<HeaderState>({ isOpen: false, currentUser: null });
 
   const handleOpen = (): void => {
-    setOpen(true);
+    setState({ isOpen: true, currentUser: curState.currentUser });
   };
 
   const handleClose = (): void => {
-    setOpen(false);
+    setState({ isOpen: false, currentUser: curState.currentUser });
   };
 
-  return (
+  const userLogOut = (): void => {
+    handleClose();
+    logout();
+  };
+
+  const loggedInUser = (
     <>
       <UserBoxButton color="secondary" ref={ref} onClick={handleOpen}>
-        <Avatar variant="rounded" alt={user.name} src={user.avatar} />
+        <Avatar variant="rounded" alt={authx.user?.displayName} src={authx.user?.photoURL} />
         <Hidden mdDown>
           <UserBoxText>
-            <UserBoxLabel variant="body1">{user.name}</UserBoxLabel>
+            <UserBoxLabel variant="body1">{authx.user?.displayName}</UserBoxLabel>
             <UserBoxDescription variant="body2">
-              {user.jobtitle}
+              {authx.user?.email}
             </UserBoxDescription>
           </UserBoxText>
         </Hidden>
@@ -95,7 +102,7 @@ function HeaderUserbox() {
       <Popover
         anchorEl={ref.current}
         onClose={handleClose}
-        open={isOpen}
+        open={curState.isOpen}
         anchorOrigin={{
           vertical: 'top',
           horizontal: 'right',
@@ -106,40 +113,24 @@ function HeaderUserbox() {
         }}
       >
         <MenuUserBox sx={{ minWidth: 210 }} display="flex">
-          <Avatar variant="rounded" alt={user.name} src={user.avatar} />
+          <Avatar variant="rounded" alt={authx.user?.displayName} src={authx.user?.photoURL} />
           <UserBoxText>
-            <UserBoxLabel variant="body1">{user.name}</UserBoxLabel>
+            <UserBoxLabel variant="body1">{authx.user?.displayName}</UserBoxLabel>
             <UserBoxDescription variant="body2">
-              {user.jobtitle}
+              {authx.user?.email}
             </UserBoxDescription>
           </UserBoxText>
         </MenuUserBox>
         <Divider sx={{ mb: 0 }} />
         <List sx={{ p: 1 }} component="nav">
-          <ListItem button to="/management/profile/details" component={NavLink}>
+          <ListItem button to="/app/usersettings" component={NavLink}>
             <AccountBoxTwoToneIcon fontSize="small" />
             <ListItemText primary="My Profile" />
-          </ListItem>
-          <ListItem
-            button
-            to="/dashboards/messenger"
-            component={NavLink}
-          >
-            <InboxTwoToneIcon fontSize="small" />
-            <ListItemText primary="Messenger" />
-          </ListItem>
-          <ListItem
-            button
-            to="/management/profile/settings"
-            component={NavLink}
-          >
-            <AccountTreeTwoToneIcon fontSize="small" />
-            <ListItemText primary="Account Settings" />
           </ListItem>
         </List>
         <Divider />
         <Box sx={{ m: 1 }}>
-          <Button color="primary" fullWidth>
+          <Button color="primary" fullWidth onClick={userLogOut}>
             <LockOpenTwoToneIcon sx={{ mr: 1 }} />
             Sign out
           </Button>
@@ -147,6 +138,17 @@ function HeaderUserbox() {
       </Popover>
     </>
   );
+
+  const noUser = (
+    <>
+      <Button color="primary" fullWidth onClick={signInWithGoogle}>
+        <LockOpenTwoToneIcon sx={{ mr: 1 }} />
+        Sign in
+      </Button>
+    </>
+);
+
+  return authx.isSignedIn ? loggedInUser : noUser;
 }
 
 export default HeaderUserbox;

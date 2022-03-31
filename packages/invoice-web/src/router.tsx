@@ -17,6 +17,7 @@ const MainPage = Loader(lazy(() => import('./pages/main/MainPage')));
 // ConvertPage
 
 const ConvertPage = Loader(lazy(() => import('./pages/convert/ConvertPage')));
+const UserSettings = Loader(lazy(() => import('./pages/usersettings')));
 
 const routes: RouteObject[] = [
   {
@@ -60,7 +61,7 @@ const routes: RouteObject[] = [
     ],
   },
   {
-    path: 'dashboards',
+    path: 'app',
     element: (
       <TopMenuLayout />
     ),
@@ -69,7 +70,7 @@ const routes: RouteObject[] = [
         path: '',
         element: (
           <Navigate
-            to="/dashboards/convert"
+            to="/app/convert"
             replace
           />
         ),
@@ -77,6 +78,10 @@ const routes: RouteObject[] = [
       {
         path: 'convert',
         element: <ConvertPage />,
+      },
+      {
+        path: 'usersettings',
+        element: <UserSettings />,
       },
     ],
   },

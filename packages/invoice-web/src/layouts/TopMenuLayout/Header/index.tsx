@@ -40,7 +40,9 @@ function Header() {
       <Box display="flex" alignItems="center">
         <HeaderMenu />
       </Box>
-      <Box display="flex" alignItems="center" />
+      <Box display="flex" alignItems="center">
+        <HeaderUserbox />
+      </Box>
     </HeaderWrapper>
   );
 }
