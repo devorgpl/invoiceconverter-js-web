@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import {
- Grid, Container, styled, Box,
+ Grid, Container, styled, Box, Card, CardHeader, FormControl, Divider, CardContent,
 } from '@mui/material';
 import PageTitleWrapper from '../../components/PageTitleWrapper';
 import Footer from '../../components/Footer';
@@ -25,7 +25,27 @@ function ConvertPage(): React.ReactElement {
         </PageTitleWrapper>
         <BodyContent>
           <Container maxWidth="lg">
-            <Convert />
+            <Grid
+              container
+              direction="row"
+              justifyContent="center"
+              alignItems="stretch"
+              spacing={3}
+            >
+              <Grid item xs={12}>
+                <Card>
+                  <Card>
+                    <CardHeader
+                      title="Invoice converter"
+                    />
+                    <Divider />
+                    <CardContent>
+                      <Convert />
+                    </CardContent>
+                  </Card>
+                </Card>
+              </Grid>
+            </Grid>
           </Container>
         </BodyContent>
         <Footer />
