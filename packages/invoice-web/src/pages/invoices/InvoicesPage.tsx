@@ -3,9 +3,6 @@ import { Helmet } from 'react-helmet-async';
 import {
  Grid, Container, styled, Box, Card, CardHeader, FormControl, InputLabel, Select, Divider, TableContainer, Table, TableHead, TableRow, TableCell, Checkbox, TableBody, Typography, Tooltip, IconButton, useTheme,
 } from '@mui/material';
-import numeral from 'numeral';
-import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
-import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import { EppGenerator } from '@devorgpl/invoice-lib/bin/src/generators/EppGenerator';
 import { encode } from 'iconv-lite';
@@ -14,6 +11,7 @@ import PageTitleWrapper from '../../components/PageTitleWrapper';
 import Footer from '../../components/Footer';
 import { useAuth } from '../../libs/firebase';
 import { Invoice, InvoiceService } from '../../services/InvoiceService';
+import { NavLink } from 'react-router-dom';
 
 const BodyContent = styled(Box)(
   ({ theme }) => `
@@ -75,7 +73,9 @@ function InvoiceRow(props: InvoiceRowProps): React.ReactElement {
             gutterBottom
             noWrap
           >
-            {invoice.meta.number}
+            <NavLink to={`/app/invoice/${invoice.meta.dbid}`}>
+              {invoice.meta.number}
+            </NavLink>
           </Typography>
         </TableCell>
         <TableCell>
@@ -135,9 +135,10 @@ function InvoicesPage(): React.ReactElement {
 
                 snapshot.forEach((el) => {
                     const val: Invoice = el.val();
+                    val.meta.dbid = el.key;
                     val.data = new XMLParser().parse(val.raw);
                     intData.data.push(val);
-                    intData.output.push((<InvoiceRow key={el.key} invoice={val} />));
+                    intData.output.push((<InvoiceRow key={val.meta.dbid} invoice={val} />));
                 });
                 updateData(intData);
             });

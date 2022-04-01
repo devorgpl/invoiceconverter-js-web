@@ -4,11 +4,12 @@ import { Navigate, RouteObject } from 'react-router-dom';
 import SuspenseLoader from './components/SuspenseLoader';
 import TopMenuLayout from './layouts/TopMenuLayout';
 
-const Loader = (Component) => (props) => (
+const Loader = (Component) => (props) => {
+  return (
   <Suspense fallback={<SuspenseLoader />}>
     <Component {...props} />
   </Suspense>
-);
+)};
 
 // Pages
 
@@ -19,6 +20,7 @@ const MainPage = Loader(lazy(() => import('./pages/main/MainPage')));
 const ConvertPage = Loader(lazy(() => import('./pages/convert/ConvertPage')));
 const UserSettings = Loader(lazy(() => import('./pages/usersettings')));
 const InvoicesPage = Loader(lazy(() => import('./pages/invoices/InvoicesPage')));
+const InvoicePreviewPage = Loader(lazy(() => import('./pages/invoice-preview/InvoicePreviewPage')));
 
 export enum ROLES {NO_AUTH, AUTH}
 
@@ -78,6 +80,10 @@ const authRoutes: RouteObjectCustom[] = [
       {
         path: 'invoices',
         element: <InvoicesPage />,
+      },
+      {
+        path: 'invoice/:id',
+        element: <InvoicePreviewPage />,
       },
       {
         path: 'usersettings',

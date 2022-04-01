@@ -9,7 +9,8 @@ export interface InvoiceMeta {
     date: string,
     from: string,
     amount: number,
-    currency: string
+    currency: string,
+    dbid?: string,
 }
 
 export interface Invoice {
