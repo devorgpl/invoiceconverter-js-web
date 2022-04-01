@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import {
  Grid, Container, styled, Box, Card, CardHeader, FormControl, InputLabel, Select, Divider, TableContainer, Table, TableHead, TableRow, TableCell, Checkbox, TableBody, Typography, Tooltip, IconButton, useTheme,
@@ -6,6 +6,10 @@ import {
 import numeral from 'numeral';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
+import { EppGenerator } from '@devorgpl/invoice-lib/bin/src/generators/EppGenerator';
+import { encode } from 'iconv-lite';
+import { XMLParser } from 'fast-xml-parser';
 import PageTitleWrapper from '../../components/PageTitleWrapper';
 import Footer from '../../components/Footer';
 import { useAuth } from '../../libs/firebase';
@@ -17,8 +21,26 @@ const BodyContent = styled(Box)(
 `,
 );
 
+const downloadTxtFile = (name: string, data: Buffer) => {
+    const element = document.createElement('a');
+    const file = new Blob([data], { type: 'text/plain' });
+    element.href = URL.createObjectURL(file);
+    element.download = name;
+    document.body.appendChild(element); // Required for this to work in FireFox
+    element.click();
+};
+
 interface InvoiceRowProps {
     invoice: Invoice
+}
+
+function download(invoice: Invoice) {
+    return () => {
+        const generator = new EppGenerator();
+        const result = generator.generate(invoice.data);
+        const buffer:Buffer = encode(result, 'win1250');
+        downloadTxtFile(`${invoice.meta.number}.epp`, buffer);
+    };
 }
 
 function InvoiceRow(props: InvoiceRowProps): React.ReactElement {
@@ -27,7 +49,6 @@ function InvoiceRow(props: InvoiceRowProps): React.ReactElement {
     return (
       <TableRow
         hover
-        key={invoice.meta.number}
       >
         <TableCell padding="checkbox">
           <Checkbox
@@ -44,9 +65,7 @@ function InvoiceRow(props: InvoiceRowProps): React.ReactElement {
           >
             {invoice.meta.from}
           </Typography>
-          <Typography variant="body2" color="text.secondary" noWrap>
-            format(cryptoOrder.orderDate, yyyy-dd-MM)
-          </Typography>
+          <Typography variant="body2" color="text.secondary" noWrap />
         </TableCell>
         <TableCell>
           <Typography
@@ -69,9 +88,7 @@ function InvoiceRow(props: InvoiceRowProps): React.ReactElement {
           >
             {invoice.meta.date}
           </Typography>
-          <Typography variant="body2" color="text.secondary" noWrap>
-            xx
-          </Typography>
+          <Typography variant="body2" color="text.secondary" noWrap />
         </TableCell>
         <TableCell align="right">
           <Typography
@@ -81,20 +98,15 @@ function InvoiceRow(props: InvoiceRowProps): React.ReactElement {
             gutterBottom
             noWrap
           >
-            00 PLN
-          </Typography>
-          <Typography variant="body2" color="text.secondary" noWrap>
-            {numeral(1000.00022).format(
-                        `PLN 0,0.00`,
-                      )}
+            {invoice.meta.amount}
+            {' '}
+            {invoice.meta.currency}
           </Typography>
         </TableCell>
         <TableCell align="right">
-          status
-        </TableCell>
-        <TableCell align="right">
-          <Tooltip title="Edit Order" arrow>
+          <Tooltip title="Download EPP format" arrow>
             <IconButton
+              onClick={download(invoice)}
               sx={{
                           '&:hover': {
                             background: theme.colors.primary.lighter,
@@ -104,19 +116,8 @@ function InvoiceRow(props: InvoiceRowProps): React.ReactElement {
               color="inherit"
               size="small"
             >
-              <EditTwoToneIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Delete Order" arrow>
-            <IconButton
-              sx={{
-                          '&:hover': { background: theme.colors.error.lighter },
-                          color: theme.palette.error.main,
-                        }}
-              color="inherit"
-              size="small"
-            >
-              <DeleteTwoToneIcon fontSize="small" />
+              <ArrowCircleDownIcon fontSize="small" />
+              EPP
             </IconButton>
           </Tooltip>
         </TableCell>
@@ -127,17 +128,21 @@ function InvoiceRow(props: InvoiceRowProps): React.ReactElement {
 function InvoicesPage(): React.ReactElement {
     const authx = useAuth();
     const [data, updateData] = useState({ data: [], output: [], loaded: false });
-    if (!data.loaded) {
-    InvoiceService.getAll(authx, (snapshot) => {
-        const intData = { data: [], output: [], loaded: true };
+    useEffect(() => {
+        if (!data.loaded) {
+            return InvoiceService.getAll(authx, (snapshot) => {
+                const intData = { data: [], output: [], loaded: true };
 
-        snapshot.forEach((el) => {
-            intData.data.push(el.val());
-            intData.output.push((<InvoiceRow invoice={el.val()} />));
-        });
-        updateData(intData);
-      });
-    }
+                snapshot.forEach((el) => {
+                    const val: Invoice = el.val();
+                    val.data = new XMLParser().parse(val.raw);
+                    intData.data.push(val);
+                    intData.output.push((<InvoiceRow key={el.key} invoice={val} />));
+                });
+                updateData(intData);
+            });
+        } return () => {};
+    }, [authx, data.loaded]);
 
     return (
       <>
@@ -184,7 +189,6 @@ function InvoicesPage(): React.ReactElement {
                             <TableCell>Data</TableCell>
                             <TableCell align="right">Amount</TableCell>
                             <TableCell align="right">Download</TableCell>
-                            <TableCell align="right">Actions</TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>

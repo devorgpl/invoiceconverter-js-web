@@ -1,32 +1,34 @@
 import type { FakturaType } from "@devorgpl/ksef-model-lib/xmlns/crd.gov.pl/wzor/2021/11/29/11089";
 import {
- onChildAdded, onValue, push, ref, set,
+ onChildAdded, onValue, push, ref, set, Unsubscribe,
 } from "firebase/database";
 import { db } from "../libs/firebase";
 
 export interface InvoiceMeta {
     number: string,
-    date: Date,
-    from: string
+    date: string,
+    from: string,
+    amount: number,
+    currency: string
 }
 
 export interface Invoice {
     data: FakturaType,
-    meta: InvoiceMeta
+    meta: InvoiceMeta,
+    raw: string
 }
 
 export const InvoiceService = {
-    async getAll(authx, callback): Promise<Invoice[]> {
+    getAll(authx, callback): Unsubscribe {
         if (!authx.isSignedIn) {
-            return [];
+            return () => {};
         }
         const { user } = authx;
         const dbRef = ref(db, `invoices/${user.uid}`);
         const invoices = [];
-        await onValue(dbRef, callback, {
+        return onValue(dbRef, callback, {
             onlyOnce: false,
-          });
-        return invoices;
+        });
     },
 
     async put(authx, inv: Invoice): Promise<void> {

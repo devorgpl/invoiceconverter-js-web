@@ -3,6 +3,7 @@ import { ComarchXmlParser } from '@devorgpl/invoice-lib/bin/src/parsers/ComarchX
 import { EppGenerator } from '@devorgpl/invoice-lib/bin/src/generators/EppGenerator';
 import { encode } from 'iconv-lite';
 import './Convert.css';
+import { XMLBuilder } from 'fast-xml-parser';
 import { InvoiceMeta, InvoiceService } from '../../services/InvoiceService';
 import { useAuth } from '../../libs/firebase';
 
@@ -72,11 +73,15 @@ function Convert(): React.ReactElement {
                 const parser = new ComarchXmlParser();
                 const parsed = parser.parse(data);
                 const meta: InvoiceMeta = {
-                    date: parsed.Naglowek.DataWytworzeniaFa,
+                    date: parsed.Naglowek.DataWytworzeniaFa.toISOString(),
                     from: parsed.Podmiot1.DaneIdentyfikacyjne.PelnaNazwa,
                     number: parsed.Fa.P_2,
+                    amount: parsed.Fa.FaWiersze.WartoscWierszyFaktury1,
+                    currency: parsed.Fa.KodWaluty,
                 };
-                InvoiceService.put(authx, { data: parsed, meta });
+                const raw = new XMLBuilder({}).build(parsed);
+
+                InvoiceService.put(authx, { raw, data: parsed, meta });
                 const generator = new EppGenerator();
                 const result = generator.generate(parsed);
                 const buffer:Buffer = encode(result, 'win1250');

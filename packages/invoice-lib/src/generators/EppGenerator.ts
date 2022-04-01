@@ -44,6 +44,9 @@ export class EppGenerator implements GeneratorInterface {
 
 
     formatDate(date: Date): string {
+        if (!(date instanceof Date)) {
+            date = new Date(date);
+        }
         const month = date.getMonth() + 1;
         return '' 
             + String(date.getFullYear()) + ''
