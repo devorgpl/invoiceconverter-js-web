@@ -13,6 +13,16 @@ import Footer from '../../components/Footer';
 import { useAuth } from '../../libs/firebase';
 import { Invoice, InvoiceService } from '../../services/InvoiceService';
 
+function printDate(date: string | Date): string {
+  if (!date) {
+    return '';
+  }
+  if (date instanceof Date) {
+    date = (date as unknown as Date).toISOString()
+  }
+  return date.toString().substring(0,10);
+}
+
 const BodyContent = styled(Box)(
   ({ theme }) => `
         padding: ${theme.spacing(4, 0)};
@@ -86,7 +96,19 @@ function InvoiceRow(props: InvoiceRowProps): React.ReactElement {
             gutterBottom
             noWrap
           >
-            {invoice.meta.date}
+            {printDate(invoice.meta.date)}
+          </Typography>
+          <Typography variant="body2" color="text.secondary" noWrap />
+        </TableCell>
+        <TableCell>
+          <Typography
+            variant="body1"
+            fontWeight="bold"
+            color="text.primary"
+            gutterBottom
+            noWrap
+          >
+            {printDate(invoice.meta.createDate)}
           </Typography>
           <Typography variant="body2" color="text.secondary" noWrap />
         </TableCell>
@@ -187,8 +209,9 @@ function InvoicesPage(): React.ReactElement {
                             </TableCell>
                             <TableCell>Wystawca</TableCell>
                             <TableCell>Numer</TableCell>
-                            <TableCell>Data</TableCell>
-                            <TableCell align="right">Amount</TableCell>
+                            <TableCell>Data faktury</TableCell>
+                            <TableCell>Data dodania</TableCell>
+                            <TableCell align="right">Wartość</TableCell>
                             <TableCell align="right">Download</TableCell>
                           </TableRow>
                         </TableHead>

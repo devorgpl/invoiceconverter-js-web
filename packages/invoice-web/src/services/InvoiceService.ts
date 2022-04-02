@@ -1,6 +1,6 @@
 import type { FakturaType } from "@devorgpl/ksef-model-lib/xmlns/crd.gov.pl/wzor/2021/11/29/11089";
 import {
- onValue, push, ref, set, Unsubscribe, get, child,
+ onValue, push, ref, set, Unsubscribe, get, child, query, orderByChild,
 } from "firebase/database";
 import { XMLParser } from 'fast-xml-parser';
 import { db } from "../libs/firebase";
@@ -8,6 +8,8 @@ import { db } from "../libs/firebase";
 export interface InvoiceMeta {
     number: string,
     date: string,
+    createDate?: string,
+    orderingField?: number,
     from: string,
     amount: number,
     currency: string,
@@ -27,8 +29,9 @@ export const InvoiceService = {
         }
         const { user } = authx;
         const dbRef = ref(db, `invoices/${user.uid}`);
+        const orderedRef = query(dbRef, orderByChild('meta/orderingField'));
         const invoices = [];
-        return onValue(dbRef, callback, {
+        return onValue(orderedRef, callback, {
             onlyOnce: false,
         });
     },
@@ -51,6 +54,8 @@ export const InvoiceService = {
         if (!authx.isSignedIn) {
             return;
         }
+        inv.meta.createDate = new Date().toISOString();
+        inv.meta.orderingField = - (new Date().getTime());
         const { user } = authx;
         const invoicesRef = push(ref(db, `invoices/${user.uid}`));
         await set(invoicesRef, inv);
