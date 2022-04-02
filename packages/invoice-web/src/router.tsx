@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { Navigate, RouteObject } from 'react-router-dom';
+import { Navigate, Outlet, RouteObject } from 'react-router-dom';
 
 import SuspenseLoader from './components/SuspenseLoader';
 import TopMenuLayout from './layouts/TopMenuLayout';
@@ -79,11 +79,17 @@ const authRoutes: RouteObjectCustom[] = [
       },
       {
         path: 'invoices',
-        element: <InvoicesPage />,
-      },
-      {
-        path: 'invoice/:id',
-        element: <InvoicePreviewPage />,
+        element: <Outlet />,
+        children: [
+          {
+            index: true,
+            element: <InvoicesPage />,
+          },
+          {
+            path: ':id',
+            element: <InvoicePreviewPage />,
+          },
+        ]
       },
       {
         path: 'usersettings',

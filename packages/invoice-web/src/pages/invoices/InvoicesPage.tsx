@@ -73,7 +73,7 @@ function InvoiceRow(props: InvoiceRowProps): React.ReactElement {
             gutterBottom
             noWrap
           >
-            <NavLink to={`/app/invoice/${invoice.meta.dbid}`}>
+            <NavLink to={`/app/invoices/${invoice.meta.dbid}`}>
               {invoice.meta.number}
             </NavLink>
           </Typography>

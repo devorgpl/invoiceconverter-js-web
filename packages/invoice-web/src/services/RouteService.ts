@@ -15,6 +15,14 @@ const userTopBarMenu = [{
     route: '/app/invoices',
 }];
 
+if (process.env.NODE_ENV === "development") {
+    userTopBarMenu.push({
+        label: "go to",
+        route: '/app/invoices/-MzXpyzzjEnP4oAAeoZj',
+    });
+}
+
+
 enum ROLES {NO_AUTH, AUTH}
 
 const redirects = [{
