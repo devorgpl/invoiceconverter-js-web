@@ -2,8 +2,8 @@ import type { FakturaType } from "@devorgpl/ksef-model-lib/xmlns/crd.gov.pl/wzor
 import {
  onValue, push, ref, set, Unsubscribe, get, child,
 } from "firebase/database";
-import { db } from "../libs/firebase";
 import { XMLParser } from 'fast-xml-parser';
+import { db } from "../libs/firebase";
 
 export interface InvoiceMeta {
     number: string,
@@ -33,9 +33,9 @@ export const InvoiceService = {
         });
     },
 
-    async getOne(authx, id) {
+    async getOne(authx, id): Promise<Invoice> {
         if (!authx.isSignedIn) {
-            return;
+            return null;
         }
         const { user } = authx;
         const snapshot = await get(child(ref(db), `invoices/${user.uid}/${id}`));
@@ -43,9 +43,8 @@ export const InvoiceService = {
             const val = snapshot.val();
             val.data = new XMLParser().parse(val.raw);
             return val;
-        } else {
-            return null;
         }
+        return null;
     },
 
     async put(authx, inv: Invoice): Promise<void> {

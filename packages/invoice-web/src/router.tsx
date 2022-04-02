@@ -4,12 +4,11 @@ import { Navigate, Outlet, RouteObject } from 'react-router-dom';
 import SuspenseLoader from './components/SuspenseLoader';
 import TopMenuLayout from './layouts/TopMenuLayout';
 
-const Loader = (Component) => (props) => {
-  return (
+const Loader = (Component) => (props) => (
   <Suspense fallback={<SuspenseLoader />}>
     <Component {...props} />
   </Suspense>
-)};
+);
 
 // Pages
 
@@ -89,7 +88,7 @@ const authRoutes: RouteObjectCustom[] = [
             path: ':id',
             element: <InvoicePreviewPage />,
           },
-        ]
+        ],
       },
       {
         path: 'usersettings',

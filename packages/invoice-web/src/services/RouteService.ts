@@ -22,7 +22,6 @@ if (process.env.NODE_ENV === "development") {
     });
 }
 
-
 enum ROLES {NO_AUTH, AUTH}
 
 const redirects = [{
