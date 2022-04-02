@@ -54,10 +54,11 @@ export const InvoiceService = {
         if (!authx.isSignedIn) {
             return;
         }
-        inv.meta.createDate = new Date().toISOString();
-        inv.meta.orderingField = - (new Date().getTime());
+        const toPutInv = inv;
+        toPutInv.meta.createDate = new Date().toISOString();
+        toPutInv.meta.orderingField = -(new Date().getTime());
         const { user } = authx;
         const invoicesRef = push(ref(db, `invoices/${user.uid}`));
-        await set(invoicesRef, inv);
+        await set(invoicesRef, toPutInv);
     },
 };

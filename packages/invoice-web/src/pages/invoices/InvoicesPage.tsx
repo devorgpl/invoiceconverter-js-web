@@ -17,10 +17,10 @@ function printDate(date: string | Date): string {
   if (!date) {
     return '';
   }
-  if (date instanceof Date) {
-    date = (date as unknown as Date).toISOString()
-  }
-  return date.toString().substring(0,10);
+  const resultDate = (date instanceof Date)
+    ? (date as unknown as Date).toISOString()
+    : date.toString();
+  return resultDate.substring(0, 10);
 }
 
 const BodyContent = styled(Box)(
