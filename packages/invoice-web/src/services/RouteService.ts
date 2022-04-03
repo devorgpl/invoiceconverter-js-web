@@ -18,7 +18,7 @@ const userTopBarMenu = [{
 if (process.env.NODE_ENV === "development") {
     userTopBarMenu.push({
         label: "go to",
-        route: '/app/invoices/-MzXpyzzjEnP4oAAeoZj',
+        route: '/app/invoices/new',
     });
 }
 

@@ -167,6 +167,11 @@ function InvoicesPage(): React.ReactElement {
         } return () => {};
     }, [authx, data.loaded]);
 
+  let action = (<></>);
+  if (process.env.NODE_ENV === "development") {
+    action = (<NavLink to="/app/invoices/new" >Nowa faktura</NavLink>)
+  }
+
     return (
       <>
         <Helmet>
@@ -188,13 +193,7 @@ function InvoicesPage(): React.ReactElement {
                 <Card>
                   <Card>
                     <CardHeader
-                      action={(
-                        <Box width={150}>
-                          <FormControl fullWidth variant="outlined">
-                            <InputLabel>Status</InputLabel>
-                          </FormControl>
-                        </Box>
-          )}
+                      action={action}
                       title="Recent Orders"
                     />
                     <Divider />
