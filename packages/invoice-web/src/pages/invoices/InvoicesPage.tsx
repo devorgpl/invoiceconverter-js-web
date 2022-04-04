@@ -169,7 +169,7 @@ function InvoicesPage(): React.ReactElement {
 
   let action = (<></>);
   if (process.env.NODE_ENV === "development") {
-    action = (<NavLink to="/app/invoices/new" >Nowa faktura</NavLink>)
+    action = (<NavLink to="/app/invoices/new">Nowa faktura</NavLink>);
   }
 
     return (

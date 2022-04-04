@@ -61,4 +61,86 @@ export const InvoiceService = {
         const invoicesRef = push(ref(db, `invoices/${user.uid}`));
         await set(invoicesRef, toPutInv);
     },
+    emptyInvoice(): FakturaType {
+        return {
+        Fa: {
+            FaWiersze: {
+                FaWiersz: [],
+                LiczbaWierszyFaktury: 0,
+                WartoscWierszyFaktury1: 0,
+                WartoscWierszyFaktury2: 0,
+            },
+            Adnotacje: {
+                P_16: 2,
+                P_17: 2,
+                P_18: 2,
+                P_18A: 2,
+                P_19: 2,
+                P_22: 2,
+                P_23: 2,
+                P_PMarzy: 2,
+            },
+            KodWaluty: 'PLN',
+            P_1: new Date(),
+            P_15: 0,
+            P_2: '',
+            RodzajFaktury: "VAT",
+        },
+        Naglowek: {
+            DataWytworzeniaFa: new Date(),
+            KodFormularza: {
+                content: 'FA',
+                kodSystemowy: '',
+                wersjaSchemy: '',
+            },
+            WariantFormularza: 1,
+        },
+        Podmiot1: {
+            Adres: {
+                AdresPol: {
+                    KodKraju: 'PL',
+                    KodPocztowy: '',
+                    Miejscowosc: '',
+                    Ulica: '',
+                    NrDomu: '',
+                },
+                AdresZagr: {
+                    KodKraju: "PL",
+                    Miejscowosc: '',
+                },
+            },
+            DaneIdentyfikacyjne: {
+                ImiePierwsze: '',
+                NazwaHandlowa: '',
+                NIP: '',
+                Nazwisko: '',
+                PelnaNazwa: '',
+            },
+        },
+        Podmiot2: {
+            Adres: {
+                AdresPol: {
+                    KodKraju: 'PL',
+                    KodPocztowy: '',
+                    Miejscowosc: '',
+                    Ulica: '',
+                    NrDomu: '',
+                },
+                AdresZagr: {
+                    KodKraju: "PL",
+                    Miejscowosc: '',
+                },
+            },
+            DaneIdentyfikacyjne: {
+                ImiePierwsze: '',
+                NIP: '',
+                NazwaHandlowa: '',
+                Nazwisko: '',
+                PelnaNazwa: '',
+                BrakID: 1,
+                NrID: '',
+            },
+        },
+    };
+    },
 };

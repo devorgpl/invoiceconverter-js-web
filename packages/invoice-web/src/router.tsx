@@ -21,6 +21,7 @@ const UserSettings = Loader(lazy(() => import('./pages/usersettings')));
 const InvoicesPage = Loader(lazy(() => import('./pages/invoices/InvoicesPage')));
 const InvoicePreviewPage = Loader(lazy(() => import('./pages/invoice-preview/InvoicePreviewPage')));
 const InvoiceForm = Loader(lazy(() => import('./pages/invoice-form/InvoiceForm')));
+const ContactsPage = Loader(lazy(() => import('./pages/contacts/ContactsPage')));
 
 export enum ROLES {NO_AUTH, AUTH}
 
@@ -96,8 +97,12 @@ const authRoutes: RouteObjectCustom[] = [
           {
             path: 'new',
             element: <InvoiceForm />,
-          }
+          },
         ],
+      },
+      {
+        path: 'contacts',
+        element: <ContactsPage />,
       },
       {
         path: 'usersettings',
