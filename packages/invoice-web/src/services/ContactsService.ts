@@ -47,4 +47,14 @@ export const ContactsService = {
         const invoicesRef = push(ref(db, `contacts/${user.uid}`));
         await set(invoicesRef, toPutInv);
     },
+
+    emptyContact(): Contact {
+        return {
+            city: '',
+            companyName: '',
+        postalCode: '',
+        street: '',
+        vatNumber: '',
+    };
+    },
 };

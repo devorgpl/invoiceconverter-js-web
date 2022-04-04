@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
- Box, Card, CardHeader, Checkbox, Container, Divider, Grid, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography,
+ Box, Card, CardContent, CardHeader, Checkbox, Container, Divider, Grid, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography,
 } from "@mui/material";
 import { Helmet } from "react-helmet-async";
 import { useAuth } from "../../libs/firebase";
@@ -52,10 +52,30 @@ function ContactTableRow({ row }:{row: Contact}) {
     );
 }
 
+function ContactForm({contact}: {contact: Contact}) {
+    const action = (<Typography>action</Typography>);
+    return (
+        <Card>
+          <CardHeader
+            action={action}
+            title="Form"
+          />
+          <Divider />
+          <CardContent>
+            <TextField id="standard-basic" label="Company name" variant="standard" />
+            <TextField id="standard-basic" label="NIP" variant="standard" />
+            <TextField id="standard-basic" label="Postal code" variant="standard" />
+            <TextField id="standard-basic" label="City" variant="standard" />
+            <TextField id="standard-basic" label="Street" variant="standard" />
+          </CardContent>
+        </Card>)
+}
+
 export default function ContactsPage() {
     const authx = useAuth();
     const [data, updateData] = useState({ data: [], output: [], loaded: false });
     const action = (<Box>action</Box>);
+    const contact = ContactsService.emptyContact();
 
     useEffect(() => {
         if (!data.loaded) {
@@ -83,6 +103,7 @@ export default function ContactsPage() {
         </PageTitleWrapper>
         <BodyContent>
           <Container maxWidth="lg">
+              <ContactForm contact={contact}/>
             <Grid
               container
               direction="row"
@@ -95,7 +116,7 @@ export default function ContactsPage() {
                   <Card>
                     <CardHeader
                       action={action}
-                      title="Recent Orders"
+                      title="Contacts"
                     />
                     <Divider />
                     <TableContainer>
