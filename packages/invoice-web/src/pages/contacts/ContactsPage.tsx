@@ -78,7 +78,6 @@ function ContactFormInternal() {
   );
 }
 
-
 function mustBeNumber(value) { return (Number.isNaN(value) ? 'Must be a number' : undefined); }
 function validate(values) {
   const errors: {vatNumber?: string} = {};
@@ -89,14 +88,14 @@ function validate(values) {
 function ContactForm({ contact, onSubmit, onCancel }: {contact: Contact, onSubmit, onCancel}) {
   const saveAction = useCallback((submitting, pristine) => (
     <>
-    <button type="submit" disabled={submitting || pristine}>
-      Save
-    </button>
-    <button type="button" onClick={onCancel}>
-      Cancel
-    </button>
+      <button type="submit" disabled={submitting || pristine}>
+        Save
+      </button>
+      <button type="button" onClick={onCancel}>
+        Cancel
+      </button>
     </>
-    ), []);
+    ), [onCancel]);
     return (
       <Form
         onSubmit={onSubmit}

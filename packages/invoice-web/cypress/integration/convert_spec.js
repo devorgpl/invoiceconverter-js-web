@@ -8,8 +8,8 @@ const deleteDownloadsFolder = () => {
 
 beforeEach(deleteDownloadsFolder)
 
-describe('My First Test', () => {
-    it('Does not do much!', () => {
+describe('Not logged in', () => {
+    it('Download file', () => {
       cy.visit('http://localhost:5000')
       const fixtureFile = 'FX.xml';
       cy.get('#inputfile').attachFile(fixtureFile);

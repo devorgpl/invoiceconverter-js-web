@@ -7,9 +7,9 @@ import { NavLink } from "react-router-dom";
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import type { FakturaType } from "@devorgpl/ksef-model-lib/xmlns/crd.gov.pl/wzor/2021/11/29/11089";
-import { InvoiceService } from "../../services/InvoiceService";
 import { Form } from "react-final-form";
-
+import { InvoiceService } from "../../services/InvoiceService";
+/* eslint react/prop-types: off */
 const BodyContent = styled(Box)(
 ({ theme }) => `
         padding: ${theme.spacing(4, 0)};
@@ -21,15 +21,13 @@ function InvoiceFormInternal() {
   return (
     <Grid container spacing={2}>
       <Grid item xs={8}>
-      <DatePicker
-                          label="Date desktop"
-                          name="createDate"
-                          inputFormat="MM/dd/yyyy"
-                          value={date}
-                          renderInput={(params) => 
-                            <TextField name="createDateInt" label="Data wytworzenia" />
-                          }
-                        />
+        <DatePicker
+          label="Date desktop"
+          name="createDate"
+          inputFormat="MM/dd/yyyy"
+          value={date}
+          renderInput={(params) => <TextField name="createDateInt" label="Data wytworzenia" />}
+        />
       </Grid>
       <Grid item xs={4}>
         <TextField name="vatNumber" label="NIP" variant="standard" />
@@ -52,17 +50,17 @@ function validate(values) {
   return errors;
 }
 
-function InvoiceFormWrapper({onSubmit, onCancel}:{onSubmit, onCancel}) {
+function InvoiceFormWrapper({ onSubmit, onCancel }:{onSubmit, onCancel}) {
   const saveAction = useCallback((submitting, pristine) => (
     <>
-    <button type="submit" disabled={submitting || pristine}>
-      Save
-    </button>
-    <button type="button" onClick={onCancel}>
-      Cancel
-    </button>
+      <button type="submit" disabled={submitting || pristine}>
+        Save
+      </button>
+      <button type="button" onClick={onCancel}>
+        Cancel
+      </button>
     </>
-    ), []);
+    ), [onCancel]);
     return (
       <Form
         onSubmit={onSubmit}
@@ -91,13 +89,12 @@ function InvoiceFormWrapper({onSubmit, onCancel}:{onSubmit, onCancel}) {
 const invoice: FakturaType = InvoiceService.emptyInvoice();
 
 export default function InvoiceForm() {
-
-  const cancelForm = useCallback(()=> {
-    console.log("cancel");
+  const cancelForm = useCallback(() => {
+    // console.log("cancel");
   }, []);
 
-  const saveForm = useCallback((data)=> {
-    console.log(data);
+  const saveForm = useCallback((data) => {
+    // console.log(data);
   }, []);
     return (
       <LocalizationProvider dateAdapter={AdapterDateFns}>
