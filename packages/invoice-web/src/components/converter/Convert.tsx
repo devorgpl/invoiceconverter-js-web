@@ -7,6 +7,10 @@ import { XMLBuilder } from 'fast-xml-parser';
 import { InvoiceMeta, InvoiceService } from '../../services/InvoiceService';
 import { useAuth } from '../../libs/firebase';
 
+class NewDate extends Date {
+    toString = (): string => this.toISOString();
+}
+
 function Convert(): React.ReactElement {
     const fileInputRef = useRef<HTMLInputElement>();
     const uploadRef = useRef<HTMLDivElement>();
@@ -79,8 +83,11 @@ function Convert(): React.ReactElement {
                     amount: parsed.Fa.FaWiersze.WartoscWierszyFaktury1,
                     currency: parsed.Fa.KodWaluty,
                 };
+                /* eslint "no-extend-native": off */
+                const oldToString = Date.prototype.toString;
+                Date.prototype.toString = new NewDate().toString;
                 const raw = new XMLBuilder({}).build(parsed);
-
+                Date.prototype.toString = oldToString;
                 InvoiceService.put(authx, { raw, data: parsed, meta });
                 const generator = new EppGenerator();
                 const result = generator.generate(parsed);

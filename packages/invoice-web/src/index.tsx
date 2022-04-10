@@ -8,12 +8,6 @@ import App from './App';
 import 'nprogress/nprogress.css';
 import { SidebarProvider } from './contexts/SidebarContext';
 
-class NewDate extends Date {
-  toString = (): string => this.toISOString();
-}
-/* eslint "no-extend-native": off */
-Date.prototype.toString = new NewDate().toString;
-
 ReactDOM.render(
   <HelmetProvider>
     <SidebarProvider>

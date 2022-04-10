@@ -44,7 +44,14 @@ export const InvoiceService = {
         const snapshot = await get(child(ref(db), `invoices/${user.uid}/${id}`));
         if (snapshot.exists()) {
             const val = snapshot.val();
+            class NewDate extends Date {
+                toString = (): string => this.toISOString();
+            }
+            /* eslint "no-extend-native": off */
+            const oldToString = Date.prototype.toString;
+            Date.prototype.toString = new NewDate().toString;
             val.data = new XMLParser().parse(val.raw);
+            Date.prototype.toString = oldToString;
             return val;
         }
         return null;
