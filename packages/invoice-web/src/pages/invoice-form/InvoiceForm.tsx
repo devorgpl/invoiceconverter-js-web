@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
-    Box, Card, CardContent, CardHeader, Container, Divider, Grid, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography,
+    Box, Card, CardContent, CardHeader, Container, Divider, Grid, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography,
    } from "@mui/material";
+import { TextField, DatePicker } from "mui-rff";
 import { NavLink } from "react-router-dom";
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import DatePicker from "@mui/lab/DatePicker";
 import type { FakturaType } from "@devorgpl/ksef-model-lib/xmlns/crd.gov.pl/wzor/2021/11/29/11089";
 import { InvoiceService } from "../../services/InvoiceService";
+import { Form } from "react-final-form";
 
 const BodyContent = styled(Box)(
 ({ theme }) => `
@@ -15,9 +16,89 @@ const BodyContent = styled(Box)(
 `,
 );
 
+function InvoiceFormInternal() {
+  const date = new Date();
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={8}>
+      <DatePicker
+                          label="Date desktop"
+                          name="createDate"
+                          inputFormat="MM/dd/yyyy"
+                          value={date}
+                          renderInput={(params) => 
+                            <TextField name="createDateInt" label="Data wytworzenia" />
+                          }
+                        />
+      </Grid>
+      <Grid item xs={4}>
+        <TextField name="vatNumber" label="NIP" variant="standard" />
+      </Grid>
+      <Grid item xs={2}>
+        <TextField name="postalCode" label="Postal code" variant="standard" />
+      </Grid>
+      <Grid item xs={4}>
+        <TextField name="city" label="City" variant="standard" />
+      </Grid>
+      <Grid item xs={6}>
+        <TextField name="street" label="Street" variant="standard" />
+      </Grid>
+    </Grid>
+  );
+}
+
+function validate(values) {
+  const errors: {vatNumber?: string} = {};
+  return errors;
+}
+
+function InvoiceFormWrapper({onSubmit, onCancel}:{onSubmit, onCancel}) {
+  const saveAction = useCallback((submitting, pristine) => (
+    <>
+    <button type="submit" disabled={submitting || pristine}>
+      Save
+    </button>
+    <button type="button" onClick={onCancel}>
+      Cancel
+    </button>
+    </>
+    ), []);
+    return (
+      <Form
+        onSubmit={onSubmit}
+        validate={validate}
+        render={(props) => {
+          const { submitting, pristine, handleSubmit } = props;
+          return (
+            <form onSubmit={handleSubmit}>
+              <Card>
+                <CardHeader
+                  action={saveAction(submitting, pristine)}
+                  title="Form"
+                />
+                <Divider />
+                <CardContent>
+                  <InvoiceFormInternal />
+                </CardContent>
+              </Card>
+            </form>
+          );
+}}
+      />
+    );
+}
+
 const invoice: FakturaType = InvoiceService.emptyInvoice();
 
 export default function InvoiceForm() {
+
+  const cancelForm = useCallback(()=> {
+    console.log("cancel");
+  }, []);
+
+  const saveForm = useCallback((data)=> {
+    console.log(data);
+  }, []);
     return (
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <BodyContent>
@@ -41,20 +122,7 @@ export default function InvoiceForm() {
                   />
                   <Divider />
                   <CardContent>
-                    <Grid container>
-                      <Grid item lg={4} xs={6} textAlign="left">
-                        Data wystawienia:
-                        <DatePicker
-                          label="Date desktop"
-                          inputFormat="MM/dd/yyyy"
-                          value={invoice.Naglowek.DataWytworzeniaFa}
-                          onChange={handleChange}
-                          renderInput={(params) => <TextField {...params} />}
-                        />
-                        {' '}
-
-                      </Grid>
-                    </Grid>
+                    <InvoiceFormWrapper onCancel={cancelForm} onSubmit={saveForm} />
                   </CardContent>
                 </Card>
               </Grid>
