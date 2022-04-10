@@ -12,7 +12,7 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 const { isFileExist, findFiles } = require('cy-verify-downloads');
-const { rmdir } = require('fs')
+const { rmdir, existsSync } = require('fs')
 /**
  * @type {Cypress.PluginConfig}
  */
@@ -22,7 +22,7 @@ module.exports = (on, config) => {
   on('task', {
     deleteFolder(folderName) {
       console.log('deleting folder %s', folderName)
-
+      if (!existsSync(folderName)) return new Promise((resolve)=>resolve(null));
       return new Promise((resolve, reject) => {
         rmdir(folderName, { maxRetries: 10, recursive: true }, (err) => {
           if (err) {
