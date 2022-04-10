@@ -78,11 +78,6 @@ function ContactFormInternal() {
   );
 }
 
-const saveAction = (submitting, pristine) => (
-  <button type="submit" disabled={submitting || pristine}>
-    Submit
-  </button>
-  );
 
 function mustBeNumber(value) { return (Number.isNaN(value) ? 'Must be a number' : undefined); }
 function validate(values) {
@@ -91,7 +86,17 @@ function validate(values) {
   return errors;
 }
 /* eslint react/prop-types: off */
-function ContactForm({ contact, onSubmit }: {contact: Contact, onSubmit}) {
+function ContactForm({ contact, onSubmit, onCancel }: {contact: Contact, onSubmit, onCancel}) {
+  const saveAction = useCallback((submitting, pristine) => (
+    <>
+    <button type="submit" disabled={submitting || pristine}>
+      Save
+    </button>
+    <button type="button" onClick={onCancel}>
+      Cancel
+    </button>
+    </>
+    ), []);
     return (
       <Form
         onSubmit={onSubmit}
@@ -132,6 +137,10 @@ export default function ContactsPage() {
       updateFormVisible(false);
     }, [authx]);
 
+    const cancelEditContact = useCallback(() => {
+      updateFormVisible(false);
+    }, []);
+
     useEffect(() => {
         if (!data.loaded) {
             return ContactsService.getAll(authx, (snapshot) => {
@@ -159,7 +168,11 @@ export default function ContactsPage() {
         <BodyContent>
           <Container maxWidth="lg">
             <Collapse in={formVisible} collapsedSize={0}>
-              <ContactForm contact={contact} onSubmit={saveContact} />
+              <ContactForm
+                contact={contact}
+                onSubmit={saveContact}
+                onCancel={cancelEditContact}
+              />
             </Collapse>
             <Grid
               container
