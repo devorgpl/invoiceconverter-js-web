@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, {
+ FormEventHandler, useCallback, useEffect, useState,
+} from "react";
 import {
- Box, Card, CardContent, CardHeader, Checkbox, Container, Divider, Grid, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography,
+ Box, Button, Card, CardContent, CardHeader, Checkbox, Collapse, Container, Divider, Grid, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography,
 } from "@mui/material";
 import { TextField } from "mui-rff";
 import { Form, Field } from "react-final-form";
@@ -54,9 +56,7 @@ function ContactTableRow({ row }:{row: Contact}) {
     );
 }
 
-function ContactFormInternal({
- handleSubmit, form, submitting, pristine, values,
-}) {
+function ContactFormInternal() {
   return (
     <Grid container spacing={2}>
       <Grid item xs={8}>
@@ -78,40 +78,41 @@ function ContactFormInternal({
   );
 }
 
+const saveAction = (submitting, pristine) => (
+  <button type="submit" disabled={submitting || pristine}>
+    Submit
+  </button>
+  );
+
+function mustBeNumber(value) { return (Number.isNaN(value) ? 'Must be a number' : undefined); }
+function validate(values) {
+  const errors: {vatNumber?: string} = {};
+  errors.vatNumber = mustBeNumber(values.vatNumber);
+  return errors;
+}
+/* eslint react/prop-types: off */
 function ContactForm({ contact, onSubmit }: {contact: Contact, onSubmit}) {
-    const action = (<Typography>action</Typography>);
-    let reference;
-    const mustBeNumber = (value) => (isNaN(value) ? 'Must be a number' : undefined);
-    const validate = function (values) {
-      const errors: any = {};
-      errors.vatNumber = mustBeNumber(values.vatNumber);
-      return errors;
-    };
-    function saveAction(submitting, pristine) {
-      return (
-        <button type="submit" disabled={submitting || pristine}>
-          Submit
-        </button>
-      );
-    }
     return (
       <Form
         onSubmit={onSubmit}
         validate={validate}
-        render={(props) => (
-          <form onSubmit={props.handleSubmit}>
-            <Card>
-              <CardHeader
-                action={saveAction(props.submitting, props.pristine)}
-                title="Form"
-              />
-              <Divider />
-              <CardContent>
-                <ContactFormInternal {...props} />
-              </CardContent>
-            </Card>
-          </form>
-        )}
+        render={(props) => {
+          const { submitting, pristine, handleSubmit } = props;
+          return (
+            <form onSubmit={handleSubmit}>
+              <Card>
+                <CardHeader
+                  action={saveAction(submitting, pristine)}
+                  title="Form"
+                />
+                <Divider />
+                <CardContent>
+                  <ContactFormInternal />
+                </CardContent>
+              </Card>
+            </form>
+          );
+}}
       />
     );
 }
@@ -119,13 +120,17 @@ function ContactForm({ contact, onSubmit }: {contact: Contact, onSubmit}) {
 export default function ContactsPage() {
     const authx = useAuth();
     const [data, updateData] = useState({ data: [], output: [], loaded: false });
-    const action = (<Box>action</Box>);
+    const [formVisible, updateFormVisible] = useState(false);
+    const switchForm = useCallback(() => {
+      updateFormVisible((prev) => !prev);
+    }, []);
+    const action = (<Button onClick={switchForm}>Dodaj</Button>);
     const contact = ContactsService.emptyContact();
-    const saveContact = function (data) {
-      console.log('save contact', data);
+    const saveContact = useCallback((data) => {
       ContactsService.put(authx, data);
       updateData({ loaded: false, data: [], output: [] });
-    };
+      updateFormVisible(false);
+    }, [authx]);
 
     useEffect(() => {
         if (!data.loaded) {
@@ -153,7 +158,9 @@ export default function ContactsPage() {
         </PageTitleWrapper>
         <BodyContent>
           <Container maxWidth="lg">
-            <ContactForm contact={contact} onSubmit={saveContact} />
+            <Collapse in={formVisible} collapsedSize={0}>
+              <ContactForm contact={contact} onSubmit={saveContact} />
+            </Collapse>
             <Grid
               container
               direction="row"
