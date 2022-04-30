@@ -12,7 +12,7 @@
     "lint:fix": "eslint --fix --cache --format codeframe --ext mjs,tsx,jsx,ts src",
     "prebuild": "rewrite-tsconfig",
     "prelint": "rewrite-tsconfig",
-    "emulators": "firebase emulators:start"
+    "emulators": "firebase emulators:start --import ./emulators-data --export-on-exit"
   },
   "keywords": [],
   "author": "",
