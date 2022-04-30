@@ -11,7 +11,8 @@
     "lint": "eslint --cache --format codeframe --ext mjs,tsx,jsx,ts src",
     "lint:fix": "eslint --fix --cache --format codeframe --ext mjs,tsx,jsx,ts src",
     "prebuild": "rewrite-tsconfig",
-    "prelint": "rewrite-tsconfig"
+    "prelint": "rewrite-tsconfig",
+    "emulators": "firebase emulators:start"
   },
   "keywords": [],
   "author": "",

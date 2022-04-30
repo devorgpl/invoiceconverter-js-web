@@ -40,7 +40,7 @@ function ContactTableRow({ row }:{row: Contact}) {
           </Typography>
           <Typography variant="body2" color="text.secondary" noWrap />
         </TableCell>
-        <TableCell style={{ maxWidth: '100px' }}>
+        <TableCell align="right" style={{ maxWidth: '100px' }}>
           <Typography
             variant="body1"
             fontWeight="bold"
