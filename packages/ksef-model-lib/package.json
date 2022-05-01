@@ -9,6 +9,7 @@
   },
   "scripts": {
     "setup": "npm install",
+    "test": "tsc",
     "build": "npm run cxsd-fetch",
     "cxsd": "cxsd",
     "cxsd-fetch": "cxsd -t ./xmlns/ http://crd.gov.pl/wzor/2021/11/29/11089/schemat.xsd"

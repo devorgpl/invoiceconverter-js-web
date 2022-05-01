@@ -20,3 +20,7 @@ cd packages/invoice-web
 firebase emulators:start
 npm run start
 ```
+
+# Read more
+
+Testing: https://www.freecodecamp.org/news/testing-react-hooks/

@@ -4,122 +4,19 @@ import React, {
 import {
  Box, Button, Card, CardContent, CardHeader, Checkbox, Collapse, Container, Divider, Grid, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography,
 } from "@mui/material";
-import { TextField } from "mui-rff";
-import { Form, Field } from "react-final-form";
 import { Helmet } from "react-helmet-async";
 import { useAuth } from "../../libs/firebase";
 import PageTitleWrapper from "../../components/PageTitleWrapper";
 import Footer from "../../components/Footer";
 import { Contact, ContactsService } from "../../services/ContactsService";
+import ContactForm from '../../components/contact/ContactForm';
+import ContactTable from "../../components/contact/ContactTable";
 
 const BodyContent = styled(Box)(
     ({ theme }) => `
           padding: ${theme.spacing(4, 0)};
   `,
   );
-
-function ContactTableRow({ row }:{row: Contact}) {
-    return (
-      <TableRow
-        hover
-      >
-        <TableCell padding="checkbox">
-          <Checkbox
-            color="primary"
-          />
-        </TableCell>
-        <TableCell style={{ maxWidth: '100px' }}>
-          <Typography
-            variant="body1"
-            fontWeight="bold"
-            color="text.primary"
-            gutterBottom
-            noWrap
-          >
-            {row.companyName}
-          </Typography>
-          <Typography variant="body2" color="text.secondary" noWrap />
-        </TableCell>
-        <TableCell align="right" style={{ maxWidth: '100px' }}>
-          <Typography
-            variant="body1"
-            fontWeight="bold"
-            color="text.primary"
-            gutterBottom
-            noWrap
-          >
-            {row.vatNumber}
-          </Typography>
-          <Typography variant="body2" color="text.secondary" noWrap />
-        </TableCell>
-      </TableRow>
-    );
-}
-
-function ContactFormInternal() {
-  return (
-    <Grid container spacing={2}>
-      <Grid item xs={8}>
-        <TextField name="companyName" label="Company name" variant="standard" />
-      </Grid>
-      <Grid item xs={4}>
-        <TextField name="vatNumber" label="NIP" variant="standard" />
-      </Grid>
-      <Grid item xs={2}>
-        <TextField name="postalCode" label="Postal code" variant="standard" />
-      </Grid>
-      <Grid item xs={4}>
-        <TextField name="city" label="City" variant="standard" />
-      </Grid>
-      <Grid item xs={6}>
-        <TextField name="street" label="Street" variant="standard" />
-      </Grid>
-    </Grid>
-  );
-}
-
-function mustBeNumber(value) { return (Number.isNaN(value) ? 'Must be a number' : undefined); }
-function validate(values) {
-  const errors: {vatNumber?: string} = {};
-  errors.vatNumber = mustBeNumber(values.vatNumber);
-  return errors;
-}
-/* eslint react/prop-types: off */
-function ContactForm({ contact, onSubmit, onCancel }: {contact: Contact, onSubmit, onCancel}) {
-  const saveAction = useCallback((submitting, pristine) => (
-    <>
-      <button type="submit" disabled={submitting || pristine}>
-        Save
-      </button>
-      <button type="button" onClick={onCancel}>
-        Cancel
-      </button>
-    </>
-    ), [onCancel]);
-    return (
-      <Form
-        onSubmit={onSubmit}
-        validate={validate}
-        render={(props) => {
-          const { submitting, pristine, handleSubmit } = props;
-          return (
-            <form onSubmit={handleSubmit}>
-              <Card>
-                <CardHeader
-                  action={saveAction(submitting, pristine)}
-                  title="Form"
-                />
-                <Divider />
-                <CardContent>
-                  <ContactFormInternal />
-                </CardContent>
-              </Card>
-            </form>
-          );
-}}
-      />
-    );
-}
 
 export default function ContactsPage() {
     const authx = useAuth();
@@ -144,12 +41,10 @@ export default function ContactsPage() {
         if (!data.loaded) {
             return ContactsService.getAll(authx, (snapshot) => {
                 const intData = { data: [], output: [], loaded: true };
-
                 snapshot.forEach((el) => {
                     const val: Contact = el.val();
                     val.dbid = el.key;
                     intData.data.push(val);
-                    intData.output.push((<ContactTableRow key={val.dbid} row={val} />));
                 });
                 updateData(intData);
             });
@@ -188,24 +83,7 @@ export default function ContactsPage() {
                       title="Contacts"
                     />
                     <Divider />
-                    <TableContainer>
-                      <Table>
-                        <TableHead>
-                          <TableRow>
-                            <TableCell padding="checkbox">
-                              <Checkbox
-                                color="primary"
-                              />
-                            </TableCell>
-                            <TableCell>Nazwa</TableCell>
-                            <TableCell align="right">NIP</TableCell>
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                          {data.output}
-                        </TableBody>
-                      </Table>
-                    </TableContainer>
+                    <ContactTable data={data.data} />
                   </Card>
                 </Card>
               </Grid>
