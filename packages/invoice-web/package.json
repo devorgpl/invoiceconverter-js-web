@@ -12,7 +12,8 @@
     "lint:fix": "eslint --fix --cache --format codeframe --ext mjs,tsx,jsx,ts src",
     "prebuild": "rewrite-tsconfig",
     "prelint": "rewrite-tsconfig",
-    "emulators": "firebase emulators:start --import ./emulators-data --export-on-exit"
+    "emulators": "firebase emulators:start --import ./emulators-data --export-on-exit",
+    "cypress-ct": "cypress open-ct"
   },
   "keywords": [],
   "author": "",
@@ -29,7 +30,9 @@
     "chroma-js": "^2.4.2",
     "stylis": "^4.0.13",
     "stylis-plugin-rtl": "^2.1.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "@cypress/react": "^5.12.4",
+    "@cypress/webpack-dev-server": "^1.8.4"
   },
   "devDependencies": {
     "cypress": "^9.5.3"

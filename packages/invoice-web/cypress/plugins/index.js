@@ -13,11 +13,16 @@
 // the project's config changing)
 const { isFileExist, findFiles } = require('cy-verify-downloads');
 const { rmdir, existsSync } = require('fs')
+const path = require('path')
 /**
  * @type {Cypress.PluginConfig}
  */
+const injectDevServer = require("@cypress/react/plugins/react-scripts")
+//const webpackconfig = require("../../webpack.config")
 // eslint-disable-next-line no-unused-vars
 module.exports = (on, config) => {
+  // conf = require('webpack.config')
+  injectDevServer(on, config, {webpackConfigPath: path.resolve('webpack.config.js')}); //, {webpackConfigPath: './webpack.config'}
   on('task', { isFileExist, findFiles })
   on('task', {
     deleteFolder(folderName) {
@@ -34,6 +39,7 @@ module.exports = (on, config) => {
       })
     },
   })
+  return config;
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
 }
