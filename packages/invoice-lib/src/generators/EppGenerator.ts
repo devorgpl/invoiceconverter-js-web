@@ -2,6 +2,8 @@ import { FakturaType, FakturaTypeFaTypeFaWierszeTypeFaWierszType } from "@devorg
 import { GeneratorInterface } from "./GeneratorInterface";
 
 export class EppGenerator implements GeneratorInterface {
+    NEW_LINE = "\r\n";
+
     generate(invoice: FakturaType): string {
         let outputTxt = "";
         outputTxt += this.generateInfo(invoice)
@@ -15,7 +17,7 @@ export class EppGenerator implements GeneratorInterface {
         let invoiceDate = invoice.Naglowek.DataWytworzeniaFa
         const invoiceDateFormatted = this.formatDate(invoiceDate);
         const seller = invoice.Podmiot1;
-        result += "[INFO]\n"
+        result += "[INFO]" + this.NEW_LINE
         result += '"1.05",3,1250,"Subiekt GT",'
         result += this.quote(seller.DaneIdentyfikacyjne.NazwaHandlowa) + ","
         result += this.quote(seller.DaneIdentyfikacyjne.NazwaHandlowa) + ","
@@ -37,8 +39,8 @@ export class EppGenerator implements GeneratorInterface {
         result += "PL" + ","
         result += ","
         result += "0"
-        result += "\n"
-        result += "\n"
+        result += this.NEW_LINE
+        result += this.NEW_LINE
         return result
     } 
 
@@ -67,7 +69,7 @@ export class EppGenerator implements GeneratorInterface {
         const netTotal = Number(invoice.Fa.FaWiersze?.WartoscWierszyFaktury1);
         const grossTotal = Number(invoice.Fa.FaWiersze?.WartoscWierszyFaktury2);
 
-        let result = "[NAGLOWEK]\n"
+        let result = "[NAGLOWEK]" + this.NEW_LINE
         result += '"FS",1,0,2004,,,'
         result += this.quote(invoice.Fa.P_2) + ","
         result += ","
@@ -127,19 +129,19 @@ export class EppGenerator implements GeneratorInterface {
         result += ","
         result += ","
         result += ","
-        result += "\n"
-        result += "\n"
+        result += this.NEW_LINE
+        result += this.NEW_LINE
 
         result += "[ZAWARTOSC]"
-        result += "\n"
+        result += this.NEW_LINE
 
         const items = invoice.Fa.FaWiersze?.FaWiersz;
         items?.forEach(element=> {
             result += this.generateInvoiceLine(element);
         });
 
-        result += "\n"
-        result += "\n"
+        result += this.NEW_LINE
+        result += this.NEW_LINE
         return result
     } 
 
@@ -172,17 +174,17 @@ export class EppGenerator implements GeneratorInterface {
     result += ","
     result += ","
 
-    result += "\n"
+    result += this.NEW_LINE
     return result
     }
     private generateItemDictionary(invoice: FakturaType): string {
         let result = ""
-        result += "[NAGLOWEK]\n"
+        result += "[NAGLOWEK]" + this.NEW_LINE
         result += '"TOWARY"'
-        result += "\n"
-        result += "\n"
+        result += this.NEW_LINE
+        result += this.NEW_LINE
         result += "[ZAWARTOSC]"
-        result += "\n"
+        result += this.NEW_LINE
 
         const items = invoice.Fa.FaWiersze?.FaWiersz;
         items?.forEach(element=> {
@@ -239,7 +241,7 @@ export class EppGenerator implements GeneratorInterface {
         result += this.quote(element.GTIN) + ","
         result += ","
         result += ","
-        result += "\n"
+        result += this.NEW_LINE
         return result
     }
 
